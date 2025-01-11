@@ -22,10 +22,6 @@
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="assets/css/style.css" />
-
-  <!-- SweetAlert -->
-  <link rel="stylesheet" href="assets/css/sweetalert2.min.css" />
-  <script src="assets/js/sweetalert2.min.js"></script>
 </head>
 
 <body class="container min-vh-100 d-flex flex-column align-items-center justify-content-center gap-4 overflow-y-scroll">
@@ -58,7 +54,7 @@
 
   <!-- Script para manejar el envío del formulario -->
   <script src="assets/js/validate-forms.js"></script>
-  <script src="assets/js/login.js"></script>
+  <script type="module" src="assets/js/login.js"></script>
 
 </body>
 

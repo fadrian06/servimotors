@@ -1,3 +1,5 @@
+import { toast } from "../vendor/sweetalert2/index.js";
+
 const form = document.getElementById("loginForm");
 
 form.addEventListener("submit", (event) => {
@@ -13,19 +15,10 @@ form.addEventListener("submit", (event) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          Swal.fire({
-            icon: "success",
-            title: "¡Bienvenido!",
-            text: data.message,
-            showConfirmButton: false,
-            timer: 1500,
-          }).then(() => {
-            location.href = "views/dashboard/dashboard.php"; // Redirección en caso de éxito
-          });
+          location.href = "views/dashboard/dashboard.php"; // Redirección en caso de éxito
         } else {
-          Swal.fire({
+          toast.fire({
             icon: "error",
-            title: "Error",
             text: data.message,
           });
         }
@@ -33,9 +26,8 @@ form.addEventListener("submit", (event) => {
       .catch((error) => {
         console.error("Error:", error);
 
-        Swal.fire({
+        toast.fire({
           icon: "error",
-          title: "Error",
           text: "Hubo un problema al procesar tu solicitud.",
         });
       });

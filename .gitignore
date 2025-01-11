@@ -3,3 +3,4 @@
 storage
 *.sublime-*
 *.tar
+/node_modules
