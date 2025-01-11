@@ -36,7 +36,9 @@
       <label class="form-floating">
         <input name="username" class="form-control" required placeholder="" />
         <label>Nombre de usuario</label>
-        <div class="invalid-feedback">Por favor, ingrese su nombre de usuario.</div>
+        <div class="invalid-feedback">
+          Por favor, ingrese su nombre de usuario.
+        </div>
       </label>
       <label class="form-floating">
         <input
@@ -46,7 +48,9 @@
           required
           placeholder="" />
         <label>Contraseña</label>
-        <div class="invalid-feedback">Por favor, ingrese su contraseña.</div>
+        <div class="invalid-feedback">
+          Por favor, ingrese su contraseña.
+        </div>
       </label>
       <button class="btn btn-primary">Iniciar sesión</button>
     </form>
