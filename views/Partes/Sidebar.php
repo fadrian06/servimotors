@@ -37,7 +37,7 @@ const SIDEBAR_LINKS = [
         'title' => 'Lista de servicios'
       ],
       [
-        'href' => 'views/Servicios/servicios-agregar.php',
+        'href' => '../Servicios/servicios-agregar.php',
         'title' => 'Agregar servicio'
       ]
     ]
@@ -75,7 +75,7 @@ const SIDEBAR_LINKS = [
         'title' => 'Lista de empleados'
       ],
       [
-        'href' => 'views/Empleados/empleados-agregar.php',
+        'href' => '../Empleados/empleados-agregar.php',
         'title' => 'Agregar empleado'
       ]
     ]
