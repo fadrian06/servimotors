@@ -4,3 +4,4 @@ storage
 *.sublime-*
 *.tar
 /node_modules
+biome.json
