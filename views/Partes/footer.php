@@ -2,7 +2,7 @@
 <footer id="footer" class="footer bg-secondary text-white py-5">
   <div class="container">
     <div class="row">
-      
+
       <!-- Información del Taller -->
       <div class="col-md-4 mb-3">
         <h5 class="text-uppercase fw-bold">Servi Motors Dávila C.A.</h5>
@@ -32,7 +32,7 @@
           <a href="#" class="text-white"><i class="bi bi-linkedin fs-4"></i></a>
         </div>
       </div>
-      
+
     </div>
 
     <!-- Derechos reservados y diseño -->

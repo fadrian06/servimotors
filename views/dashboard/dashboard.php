@@ -25,6 +25,9 @@
   <link
     rel="stylesheet"
     href="../../assets/vendor/bootstrap-icons/bootstrap-icons.min.css" />
+  <link
+    rel="stylesheet"
+    href="../../assets/vendor/simple-datatables/style.css" />
 
   <!-- Template Main CSS File -->
   <link href="../../assets/css/style.css" rel="stylesheet">
@@ -33,9 +36,10 @@
   <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="../../assets/js/main.js"></script>
+  <script defer src="../../assets/js/main.js"></script>
 </head>
 
 <body>
@@ -399,8 +403,6 @@
   <?php include '../Partes/footer.php' ?>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-
 </body>
 
 </html>
