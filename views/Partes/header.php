@@ -1,9 +1,9 @@
 <header class="header sticky-top d-flex align-items-center">
-  <div class="d-flex align-items-center justify-content-between">
-    <a href="../dashboard/dashboard.php" class="logo">
-      <img src="../../assets/img/Logo.png" />
+  <div class="d-flex align-items-center">
+    <a href="../dashboard/dashboard.php">
+      <img src="../../assets/img/Logo.png" height="30" />
     </a>
-    <button class="bi bi-list toggle-sidebar-btn bg-transparent border-0"></button>
+    <button class="bi bi-list toggle-sidebar-btn btn"></button>
   </div>
 
   <nav class="header-nav ms-auto">

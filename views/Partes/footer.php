@@ -1,9 +1,9 @@
-<!-- ======= Footer ======= -->
-<footer id="footer" class="footer bg-secondary text-white py-5">
+</main>
+
+<footer class="footer text-bg-secondary py-5">
   <div class="container">
     <div class="row">
 
-      <!-- Información del Taller -->
       <div class="col-md-4 mb-3">
         <h5 class="text-uppercase fw-bold">Servi Motors Dávila C.A.</h5>
         <p>
@@ -12,7 +12,6 @@
         </p>
       </div>
 
-      <!-- Contacto -->
       <div class="col-md-4 mb-3">
         <h5 class="text-uppercase fw-bold">Contáctanos</h5>
         <ul class="list-unstyled">
@@ -22,7 +21,6 @@
         </ul>
       </div>
 
-      <!-- Redes Sociales -->
       <div class="col-md-4 mb-3">
         <h5 class="text-uppercase fw-bold">Síguenos</h5>
         <div class="d-flex">
@@ -35,11 +33,17 @@
 
     </div>
 
-    <!-- Derechos reservados y diseño -->
     <div class="text-center mt-4">
       <p class="mb-0">&copy; 2024 <strong>Servi Motors Dávila C.A.</strong> - Todos los derechos reservados</p>
       <small>Diseñado con dedicación por el equipo de <span class="text-warning">Servi Motors</span></small>
     </div>
   </div>
 </footer>
-<!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+  <i class="bi bi-arrow-up-short"></i>
+</a>
+
+</body>
+
+</html>

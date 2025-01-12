@@ -1,5 +1,3 @@
-<?php define('QUERY_INPUT_ID', uniqid()) ?>
-
 <li class="dropdown">
   <button class="nav-link nav-icon bi bi-search" data-bs-toggle="dropdown"></button>
 
@@ -9,19 +7,18 @@
     action="javascript:"
     style="min-width: max-content">
     <div class="input-group">
-      <div class="form-floating">
+      <label class="form-floating">
         <input
-          id="<?= QUERY_INPUT_ID ?>"
           type="search"
           name="query"
           title="Ingrese palabra clave para buscar"
           required
           class="form-control pe-5"
           placeholder="" />
-        <label for="<?= QUERY_INPUT_ID ?>">
+        <label>
           Buscar vehículo o repuesto
         </label>
-      </div>
+      </label>
       <button class="btn btn-primary">Buscar</button>
     </div>
   </form>

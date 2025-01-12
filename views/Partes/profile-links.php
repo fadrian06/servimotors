@@ -2,7 +2,7 @@
 
 const PROFILE_LINKS = [
   [
-    'href' => 'views/dashboard/users-profile.php',
+    'href' => '../dashboard/users-profile.php',
     'iconClasses' => 'bi bi-person',
     'title' => 'Mi perfil'
   ],
