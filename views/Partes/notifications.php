@@ -1,9 +1,5 @@
 <?php
 
-use Jenssegers\Date\Date;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 const CLASES_ICONO = [
   'Repuesto bajo en stock' => 'bi bi-exclamation-circle text-warning',
   'Repuesto reabastecido' => 'bi bi-check-circle text-success',
@@ -34,8 +30,27 @@ $notificaciones = [
   ]
 ];
 
+const MESES = [
+  1 => 'Enero',
+  2 => 'Febrero',
+  3 => 'Marzo',
+  4 => 'Abril',
+  5 => 'Mayo',
+  6 => 'Junio',
+  7 => 'Julio',
+  8 => 'Agosto',
+  9 => 'Septiembre',
+  10 => 'Octubre',
+  11 => 'Noviembre',
+  12 => 'Diciembre'
+];
+
 date_default_timezone_set('America/Caracas');
-Date::setLocale('es');
+
+function formatearFecha(DateTimeInterface $fecha): string
+{
+  return $fecha->format('d') . ' de ' . MESES[$fecha->format('m')] . ' del ' . $fecha->format('Y');
+}
 
 ?>
 
@@ -57,6 +72,7 @@ Date::setLocale('es');
     </li>
 
     <?php foreach ($notificaciones as $notificacion): ?>
+      <?php $fecha = new DateTimeImmutable($notificacion['fecha']) ?>
       <li class="notification-item border-bottom">
         <i class="<?= @CLASES_ICONO[$notificacion['tipo']] ?>"></i>
         <div>
@@ -64,7 +80,7 @@ Date::setLocale('es');
           <p>
             <?= sprintf(PLANTILLA_MENSAJE_NOTIFICACION[$notificacion['tipo']], $notificacion['repuesto']) ?>
           </p>
-          <p><?= ucfirst((new Date($notificacion['fecha']))->ago()) ?></p>
+          <p><?= formatearFecha($fecha) ?></p>
         </div>
       </li>
     <?php endforeach ?>
