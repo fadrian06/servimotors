@@ -6,12 +6,11 @@ require_once __DIR__ . '/../../config/Database.php';
 // Clase LoginController para gestionar el inicio de sesión
 final readonly class LoginController
 {
-    private ?PDO $db;
+    private PDO $db;
 
     public function __construct()
     {
-        $database = new Database;
-        $this->db = $database->getConnection();
+        $this->db = Database::getConnection();
     }
 
     public function iniciarSesion(string $nombreUsuario, string $contrasena)
@@ -32,46 +31,51 @@ final readonly class LoginController
             $stmt = $this->db->prepare($query);
             $stmt->execute([$nombreUsuario]);
 
-            if ($stmt->rowCount() > 0) {
-                $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                // Verificar la contraseña usando password_verify
-                if (password_verify($contrasena, $usuario['contrasena'])) {
-                    // Inicio de sesión exitoso
-                    return [
-                        'success' => true,
-                        'message' => 'Inicio de sesión exitoso.',
-                        'user' => [
-                            'cedula' => $usuario['cedula'],
-                            'nombreUsuario' => $usuario['nombreUsuario'],
-                            'rol' => $usuario['nombreRol'],
-                            'primerNombre' => $usuario['primerNombre'],
-                            'segundoNombre' => $usuario['segundoNombre'],
-                            'primerApellido' => $usuario['primerApellido'],
-                            'segundoApellido' => $usuario['segundoApellido'],
-                            'telefono' => $usuario['telefono'],
-                            'correo' => $usuario['correo']
-                        ]
-                    ];
-                } else {
-                    // Contraseña incorrecta
-                    return [
-                        'success' => false,
-                        'message' => 'Contraseña incorrecta.'
-                    ];
-                }
-            } else {
+            if ($stmt->rowCount() === 0) {
                 // Usuario no encontrado
                 return [
                     'success' => false,
-                    'message' => 'El usuario no existe.'
+                    'message' => 'El usuario no existe.',
+                    'code' => 404
                 ];
             }
-        } catch (PDOException $e) {
+
+            $usuario = $stmt->fetch();
+
+            if (!password_verify($contrasena, $usuario['contrasena'])) {
+                // Contraseña incorrecta
+                return [
+                    'success' => false,
+                    'message' => 'Contraseña incorrecta.',
+                    'code' => 401
+                ];
+            }
+
+            // Inicio de sesión exitoso
+            return [
+                'success' => true,
+                'message' => 'Inicio de sesión exitoso.',
+                'user' => [
+                    'cedula' => $usuario['cedula'],
+                    'nombreUsuario' => $usuario['nombreUsuario'],
+                    'rol' => $usuario['nombreRol'],
+                    'primerNombre' => $usuario['primerNombre'],
+                    'segundoNombre' => $usuario['segundoNombre'],
+                    'primerApellido' => $usuario['primerApellido'],
+                    'segundoApellido' => $usuario['segundoApellido'],
+                    'telefono' => $usuario['telefono'],
+                    'correo' => $usuario['correo']
+                ],
+                'code' => 200
+            ];
+        } catch (PDOException $exception) {
             // Manejar errores de la base de datos
             return [
                 'success' => false,
-                'message' => "Error al intentar iniciar sesión: {$e->getMessage()}"
+                'message' => 'Error al intentar iniciar sesión',
+                'debug' => $exception->__toString(),
+                'code' => 500
             ];
         }
     }
