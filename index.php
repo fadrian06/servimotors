@@ -5,11 +5,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
 
-  <title>Inicio de sesión</title>
+  <title>Inicio de sesión - SERVIMOTORS</title>
 
   <!-- Favicons -->
   <link rel="icon" href="assets/img/favicon.png" />
-  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
 
   <!-- Google Fonts -->
   <link
