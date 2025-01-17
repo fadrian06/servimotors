@@ -37,9 +37,9 @@ final class Database
                 // Configurar el modo de error para que use excepciones
                 self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 self::$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            } catch (PDOException $e) {
+            } catch (PDOException $exception) {
                 // Mostrar un mensaje en caso de error
-                echo "Connection error: {$e->getMessage()}";
+                exit("Connection error: {$exception->getMessage()}");
             }
         }
 
