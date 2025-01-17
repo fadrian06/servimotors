@@ -1,43 +1,48 @@
 <?php
 
 /** Clase para gestionar la conexión a la base de datos */
-class Database
+final class Database
 {
-    // Propiedades privadas para los parámetros de conexión
+    private const SUPPORTED_DB_CONNECTIONS = [
+        'sqlite' => 'sqlite',
+        'mysql' => 'mysql'
+    ];
 
-    /** @var string Servidor */
-    private $host = "localhost";
-
-    /** @var string Nombre de la base de datos */
-    private $db_name = "servimotorsdavila";
-
-    /** @var string Usuario de la base de datos */
-    private $username = "root";
-
-    /** @var string Contraseña del usuario */
-    private $password = "";
-
-    /** @var ?PDO Variable para almacenar la conexión */
-    private $conn = null;
+    private static ?PDO $pdo = null;
 
     /** Método para obtener la conexión */
-    public function getConnection()
+    static function getConnection(): ?PDO
     {
-        try {
-            /** Crear una instancia de PDO para conectarse a la base de datos */
-            $this->conn = new PDO(
-                "mysql:host=$this->host;dbname=$this->db_name",
-                $this->username,
-                $this->password
-            );
+        require_once __DIR__ . '/environment.php';
 
-            // Configurar el modo de error para que use excepciones
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            // Mostrar un mensaje en caso de error
-            echo "Connection error: {$e->getMessage()}";
+        $_ENV['DB_CONNECTION'] ??= 'mysql';
+        $_ENV['DB_HOST'] ??= 'localhost';
+        $_ENV['DB_DATABASE'] ??= 'servimotorsdavila';
+        $_ENV['DB_USERNAME'] ??= 'root';
+        $_ENV['DB_PASSWORD'] ??= '';
+
+        if (!self::$pdo) {
+            try {
+                /** Crear una instancia de PDO para conectarse a la base de datos */
+                if ($_ENV['DB_CONNECTION'] === self::SUPPORTED_DB_CONNECTIONS['sqlite']) {
+                    self::$pdo = new PDO("sqlite:{$_ENV['DB_DATABASE']}");
+                } elseif ($_ENV['DB_CONNECTION'] === self::SUPPORTED_DB_CONNECTIONS['mysql']) {
+                    self::$pdo = new PDO(
+                        "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_DATABASE']}",
+                        $_ENV['DB_USERNAME'],
+                        $_ENV['DB_PASSWORD']
+                    );
+                }
+
+                // Configurar el modo de error para que use excepciones
+                self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                // Mostrar un mensaje en caso de error
+                echo "Connection error: {$e->getMessage()}";
+            }
         }
 
-        return $this->conn; // Devolver la conexión
+        return self::$pdo; // Devolver la conexión
     }
 }
