@@ -31,6 +31,7 @@ $sql = "
 
 // Ejecutar la consulta y mostrar los datos en la tabla
 $stmt = $conn->query($sql);
+header('content-type: application/json');
 
 exit(json_encode([
   'data' => $stmt->fetchAll(PDO::FETCH_FUNC, static fn(...$client): array => [
