@@ -77,11 +77,9 @@ $stmt = $conn->query($sql);
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="../../assets/css/style.css" />
-  <link rel="stylesheet" href="../../assets/css/Mystyle.css" />
 
   <!-- SweetAlert -->
-  <link rel="stylesheet" href="../../assets/css/sweetalert2.min.css" />
-  <script src="../../assets/js/sweetalert2.min.js"></script>
+  <script src="../../assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
 
   <!-- Vendor JS Files -->
   <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -178,7 +176,7 @@ $stmt = $conn->query($sql);
         language: {
           url: '../../assets/vendor/simple-datatables/es-ES.json'
         },
-        ajax: '../../api.php?clientes'
+        ajax: '../../api/clientes/'
       })
 
       // Función para editar cliente
@@ -568,11 +566,11 @@ $stmt = $conn->query($sql);
           try {
             const formData = new FormData(form)
 
-            let response = await fetch(`../../api.php?id_estado=${form.state.value}`)
+            let response = await fetch(`../../api/municipios/?id_estado=${form.state.value}`)
             const estado = await response.json()
-            response = await fetch(`../../api.php?id_municipio=${form.municipality.value}`)
+            response = await fetch(`../../api/parroquias/?id_municipio=${form.municipality.value}`)
             const municipio = await response.json()
-            response = await fetch(`../../api.php?id_parroquia=${form.parish.value}`)
+            response = await fetch(`../../api/avenidas/?id_parroquia=${form.parish.value}`)
             const parroquia = await response.json()
 
             function soloInicialMayuscula(string = '') {
@@ -641,7 +639,7 @@ $stmt = $conn->query($sql);
         const $listCalles = $formEditarCliente.querySelector('#street-list')
         const $inputCalle = $formEditarCliente.street
 
-        fetch('../../api.php?estados')
+        fetch('../../api/estados/')
           .then(response => response.json())
           .then(estados => {
             $selectEstado.innerHTML = '<option value=""></option>'
@@ -662,7 +660,7 @@ $stmt = $conn->query($sql);
             return
           }
 
-          fetch(`../../api.php?municipios&id_estado=${$selectEstado.value}`)
+          fetch(`../../api/municipios/?id_estado=${$selectEstado.value}`)
             .then(response => response.json())
             .then(municipios => {
               $selectMunicipio.innerHTML = '<option value=""></option>'
@@ -684,7 +682,7 @@ $stmt = $conn->query($sql);
             return
           }
 
-          fetch(`../../api.php?parroquias&id_municipio=${$selectMunicipio.value}`)
+          fetch(`../../api/parroquias/?id_municipio=${$selectMunicipio.value}`)
             .then(response => response.json())
             .then(parroquias => {
               $selectParroquia.innerHTML = '<option value=""></option>'
@@ -706,7 +704,7 @@ $stmt = $conn->query($sql);
             return
           }
 
-          fetch(`../../api.php?avenidas&id_parroquia=${$selectParroquia.value}`)
+          fetch(`../../api/avenidas/?id_parroquia=${$selectParroquia.value}`)
             .then(response => response.json())
             .then(avenidas => {
               $listAvenidas.innerHTML = '<option value="Sin nombre" />'
@@ -726,7 +724,7 @@ $stmt = $conn->query($sql);
 
           const [, idAvenida = ''] = $inputAvenida.value.split(/\s?-\s?/)
 
-          fetch(`../../api.php?calles&id_avenida=${idAvenida}&id_parroquia=${$selectParroquia.value}`)
+          fetch(`../../api/calles/?id_avenida=${idAvenida}&id_parroquia=${$selectParroquia.value}`)
             .then(response => response.json())
             .then(calles => {
               $listCalles.innerHTML = '<option value="Sin nombre" />'
@@ -1014,11 +1012,11 @@ $stmt = $conn->query($sql);
           try {
             const formData = new FormData(form)
 
-            let response = await fetch(`../../api.php?id_estado=${form.state.value}`)
+            let response = await fetch(`../../api/estados/by-id.php?id=${form.state.value}`)
             const estado = await response.json()
-            response = await fetch(`../../api.php?id_municipio=${form.municipality.value}`)
+            response = await fetch(`../../api/municipios/by-id.php?id=${form.municipality.value}`)
             const municipio = await response.json()
-            response = await fetch(`../../api.php?id_parroquia=${form.parish.value}`)
+            response = await fetch(`../../api/parroquias/by-id.php?id=${form.parish.value}`)
             const parroquia = await response.json()
 
             function soloInicialMayuscula(string = '') {
@@ -1085,7 +1083,7 @@ $stmt = $conn->query($sql);
       const $listCalles = $formNuevoCliente.querySelector('#street-list')
       const $inputCalle = $formNuevoCliente.street
 
-      fetch('../../api.php?estados')
+      fetch('../../api/estados/')
         .then(response => response.json())
         .then(estados => {
           $selectEstado.innerHTML = '<option value=""></option>'
@@ -1106,7 +1104,7 @@ $stmt = $conn->query($sql);
           return
         }
 
-        fetch(`../../api.php?municipios&id_estado=${$selectEstado.value}`)
+        fetch(`../../api/municipios/?id_estado=${$selectEstado.value}`)
           .then(response => response.json())
           .then(municipios => {
             $selectMunicipio.innerHTML = '<option value=""></option>'
@@ -1128,7 +1126,7 @@ $stmt = $conn->query($sql);
           return
         }
 
-        fetch(`../../api.php?parroquias&id_municipio=${$selectMunicipio.value}`)
+        fetch(`../../api/parroquias/?id_municipio=${$selectMunicipio.value}`)
           .then(response => response.json())
           .then(parroquias => {
             $selectParroquia.innerHTML = '<option value=""></option>'
@@ -1150,7 +1148,7 @@ $stmt = $conn->query($sql);
           return
         }
 
-        fetch(`../../api.php?avenidas&id_parroquia=${$selectParroquia.value}`)
+        fetch(`../../api/avenidas/?id_parroquia=${$selectParroquia.value}`)
           .then(response => response.json())
           .then(avenidas => {
             $listAvenidas.innerHTML = '<option value="Sin nombre" />'
@@ -1170,7 +1168,7 @@ $stmt = $conn->query($sql);
 
         const [, idAvenida = ''] = $inputAvenida.value.split(/\s?-\s?/)
 
-        fetch(`../../api.php?calles&id_avenida=${idAvenida}&id_parroquia=${$selectParroquia.value}`)
+        fetch(`../../api/calles/?id_avenida=${idAvenida}&id_parroquia=${$selectParroquia.value}`)
           .then(response => response.json())
           .then(calles => {
             $listCalles.innerHTML = '<option value="Sin nombre" />'
