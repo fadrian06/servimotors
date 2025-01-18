@@ -7,7 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 // Verificar si el usuario está logeado
 if (!isset($_SESSION['usuario_logeado'])) {
     // Si no está logeado, redirigir a la página de inicio (index.php)
-    exit(header('Location: ../../index.php'));
+    exit(header('Location: ../../'));
 }
 
 // Incluir la clase de conexión a la base de datos
