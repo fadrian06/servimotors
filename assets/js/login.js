@@ -14,11 +14,6 @@ form.addEventListener("submit", async (event) => {
         body: new FormData(form),
       });
 
-      if (!response.ok) {
-        console.error(await response.text());
-        return;
-      }
-
       const data = await response.json();
 
       if (data.success) {
