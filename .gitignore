@@ -6,3 +6,4 @@ storage
 /node_modules
 biome.json
 jsconfig.json
+phpstan.neon
