@@ -5,3 +5,4 @@ storage
 *.tar
 /node_modules
 biome.json
+jsconfig.json
