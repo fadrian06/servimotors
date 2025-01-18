@@ -13,4 +13,5 @@ while ($estado = $stmt->fetch()) {
   $iniciales[$estado['inicial']][] = $estado;
 }
 
+header('content-type: application/json');
 exit(json_encode($iniciales));

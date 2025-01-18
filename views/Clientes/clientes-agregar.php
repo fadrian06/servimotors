@@ -71,7 +71,7 @@ $stmt = $conn->query($sql);
         </tr>
       </thead>
       <tbody>
-        <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+        <?php while ($row = $stmt->fetch()): ?>
           <tr>
             <td><?= $row['Cédula'] ?></td>
             <td><?= $row['Primer Nombre'] ?></td>
