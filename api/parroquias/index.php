@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../db.php';
 
-$stmt = $pdo->prepare('
+$stmt = db()->prepare('
   SELECT *, SUBSTR(nombre, 0, 2) as inicial
   FROM parroquias WHERE id_municipio = ? ORDER BY inicial
 ');
@@ -14,4 +14,4 @@ while ($parroquia = $stmt->fetch()) {
   $iniciales[$parroquia['inicial']][] = $parroquia;
 }
 
-exit(json_encode($iniciales));
+json($iniciales);

@@ -1,8 +1,9 @@
 <?php
 
 require_once __DIR__ . '/../db.php';
+require_once __DIR__ . '/../functions.php';
 
-$stmt = $pdo->prepare('
+$stmt = db()->prepare('
   SELECT * FROM calles
   WHERE id_avenida = :id_avenida OR id_parroquia = :id_parroquia
 ');
@@ -12,4 +13,4 @@ $stmt->execute([
   ':id_parroquia' => $_GET['id_parroquia']
 ]);
 
-exit(json_encode($stmt->fetchAll()));
+json($stmt->fetchAll());

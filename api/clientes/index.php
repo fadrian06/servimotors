@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../config/Database.php';
+require_once __DIR__ . '/../functions.php';
 
 // Crear una instancia de la clase Database
 $database = new Database;
@@ -31,9 +32,8 @@ $sql = "
 
 // Ejecutar la consulta y mostrar los datos en la tabla
 $stmt = $conn->query($sql);
-header('content-type: application/json');
 
-exit(json_encode([
+json([
   'data' => $stmt->fetchAll(PDO::FETCH_FUNC, static fn(...$client): array => [
     $client[0],
     $client[1],
@@ -57,4 +57,4 @@ exit(json_encode([
     </button>
     html
   ])
-]));
+]);

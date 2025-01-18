@@ -1,8 +1,9 @@
 <?php
 
 require_once __DIR__ . '/../db.php';
+require_once __DIR__ . '/../functions.php';
 
-$stmt = $pdo->query('
+$stmt = db()->query('
   SELECT *, SUBSTR(nombre, 0, 2) as inicial
   FROM estados ORDER BY inicial
 ');
@@ -13,5 +14,4 @@ while ($estado = $stmt->fetch()) {
   $iniciales[$estado['inicial']][] = $estado;
 }
 
-header('content-type: application/json');
-exit(json_encode($iniciales));
+json($iniciales);
