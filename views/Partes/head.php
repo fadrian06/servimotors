@@ -33,10 +33,23 @@
   <link href="../../assets/css/style.css" rel="stylesheet">
 
   <!-- Vendor JS Files -->
+  <script src="../../assets/vendor/jquery/jquery.min.js"></script>
   <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
+
+  <!-- DataTables CSS -->
+  <link
+    rel="stylesheet"
+    href="../../assets/vendor/simple-datatables/jquery.dataTables.min.css" />
+  <link
+    rel="stylesheet"
+    href="../../assets/vendor/simple-datatables/responsive.dataTables.min.css" />
+
+  <!-- DataTables JS -->
+  <script src="../../assets/vendor/simple-datatables/jquery.dataTables.min.js"></script>
+  <script src="../../assets/vendor/simple-datatables/dataTables.responsive.min.js"></script>
 
   <!-- Template Main JS File -->
   <script defer src="../../assets/js/main.js"></script>
