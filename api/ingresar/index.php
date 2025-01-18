@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/LoginController.php';
+require_once __DIR__ . '/../../Controllers/LoginController.php';
 
 // Procesar la solicitud del cliente
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $loginController = new LoginController;
-    $resultado = $loginController->iniciarSesion($nombreUsuario, $contrasena);
+    $resultado = $loginController($nombreUsuario, $contrasena);
 
     if (!$resultado['success']) {
         http_response_code($resultado['code']);

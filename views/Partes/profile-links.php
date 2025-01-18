@@ -17,7 +17,7 @@ const PROFILE_LINKS = [
     'title' => '¿Necesitas Ayuda?'
   ],
   [
-    'href' => 'logout.php',
+    'href' => '../auth/logout.php',
     'iconClasses' => 'bi bi-box-arrow-right',
     'title' => 'Cerrar sesión'
   ]

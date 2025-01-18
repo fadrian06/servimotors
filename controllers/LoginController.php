@@ -1,19 +1,19 @@
 <?php
 
 // Incluir la clase de conexión
-require_once __DIR__ . '/../../config/Database.php';
+require_once __DIR__ . '/../config/Database.php';
 
 // Clase LoginController para gestionar el inicio de sesión
 final readonly class LoginController
 {
     private PDO $db;
 
-    public function __construct()
+    function __construct(?PDO $pdo = null)
     {
-        $this->db = Database::getConnection();
+        $this->db = $pdo ?? Database::getConnection();
     }
 
-    public function iniciarSesion(string $nombreUsuario, string $contrasena)
+    function __invoke(string $nombreUsuario, string $contrasena)
     {
         try {
             // Consulta para obtener los datos del usuario, incluyendo información personal y de contacto
@@ -30,7 +30,6 @@ final readonly class LoginController
 
             $stmt = $this->db->prepare($query);
             $stmt->execute([$nombreUsuario]);
-
 
             if ($stmt->rowCount() === 0) {
                 // Usuario no encontrado

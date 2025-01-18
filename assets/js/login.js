@@ -1,17 +1,17 @@
 import { toast } from "../vendor/sweetalert2/index.js";
 
-const form = document.getElementById("loginForm");
+const $loginForm = document.querySelector("#loginForm");
 
-form.addEventListener("submit", async (event) => {
+$loginForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
 
   // Validación del formulario
-  if (form.checkValidity()) {
+  if ($loginForm.checkValidity()) {
     try {
       // Ruta del archivo PHP
-      const response = await fetch("CRUD/Usuarios/Login.php", {
+      const response = await fetch("api/ingresar/", {
         method: "post",
-        body: new FormData(form),
+        body: new FormData($loginForm),
       });
 
       const data = await response.json();
