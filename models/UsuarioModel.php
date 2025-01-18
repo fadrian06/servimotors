@@ -1,7 +1,9 @@
 <?php
-class UsuarioModel {
-    private $conexion;
-    
+
+class UsuarioModel
+{
+    private PDO $conexion;
+
     // Patrones de validación
     private const PATRON_NOMBRE = '/^[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,30}$/';
     private const PATRON_CEDULA = '/^[V|E]-\d{5,8}$/';
@@ -10,11 +12,13 @@ class UsuarioModel {
     private const PATRON_USERNAME = '/^[a-zA-Z0-9_]{4,20}$/';
     private const PATRON_PASSWORD = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/';
 
-    public function __construct($conexion) {
+    public function __construct(PDO $conexion)
+    {
         $this->conexion = $conexion;
     }
 
-    public function validarDatos($datos) {
+    public function validarDatos($datos)
+    {
         $errores = [];
 
         if (!preg_match(self::PATRON_NOMBRE, $datos['primerNombre'])) {
@@ -48,14 +52,15 @@ class UsuarioModel {
         return $errores;
     }
 
-    public function registrarUsuario($datos) {
+    public function registrarUsuario($datos)
+    {
         try {
             $this->conexion->beginTransaction();
 
             // Insertar en tabla Usuarios
             $sqlUsuario = "INSERT INTO Usuarios (cedula, idRol, nombreUsuario, contrasena) 
                           VALUES (:cedula, :idRol, :nombreUsuario, :contrasena)";
-            
+
             $stmtUsuario = $this->conexion->prepare($sqlUsuario);
             $stmtUsuario->execute([
                 ':cedula' => str_replace(['V-', 'E-'], '', $datos['cedula']),
@@ -67,7 +72,7 @@ class UsuarioModel {
             // Insertar en tabla DatosUsuario
             $sqlDatos = "INSERT INTO DatosUsuario (cedula, primerNombre, segundoNombre, primerApellido, segundoApellido) 
                         VALUES (:cedula, :primerNombre, :segundoNombre, :primerApellido, :segundoApellido)";
-            
+
             $stmtDatos = $this->conexion->prepare($sqlDatos);
             $stmtDatos->execute([
                 ':cedula' => str_replace(['V-', 'E-'], '', $datos['cedula']),
@@ -80,7 +85,7 @@ class UsuarioModel {
             // Insertar en tabla ContactosUsuario
             $sqlContactos = "INSERT INTO ContactosUsuario (cedula, telefono, correo) 
                            VALUES (:cedula, :telefono, :correo)";
-            
+
             $stmtContactos = $this->conexion->prepare($sqlContactos);
             $stmtContactos->execute([
                 ':cedula' => str_replace(['V-', 'E-'], '', $datos['cedula']),
@@ -90,14 +95,14 @@ class UsuarioModel {
 
             $this->conexion->commit();
             return true;
-
         } catch (PDOException $e) {
             $this->conexion->rollBack();
             throw new Exception("Error al registrar usuario: " . $e->getMessage());
         }
     }
 
-    public function usuarioExiste($cedula, $nombreUsuario, $correo) {
+    public function usuarioExiste($cedula, $nombreUsuario, $correo)
+    {
         $sql = "SELECT cedula FROM Usuarios WHERE cedula = :cedula 
                 UNION 
                 SELECT cedula FROM Usuarios WHERE nombreUsuario = :nombreUsuario
@@ -105,7 +110,7 @@ class UsuarioModel {
                 SELECT u.cedula FROM Usuarios u 
                 INNER JOIN ContactosUsuario c ON u.cedula = c.cedula 
                 WHERE c.correo = :correo";
-        
+
         $stmt = $this->conexion->prepare($sql);
         $stmt->execute([
             ':cedula' => str_replace(['V-', 'E-'], '', $cedula),
@@ -116,4 +121,3 @@ class UsuarioModel {
         return $stmt->rowCount() > 0;
     }
 }
-?>
