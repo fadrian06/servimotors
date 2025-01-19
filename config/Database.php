@@ -6,7 +6,7 @@ final class Database
     private static ?PDO $pdo = null;
 
     /** Método para obtener la conexión */
-    static function getConnection(): ?PDO
+    static function getConnection(): PDO
     {
         require_once __DIR__ . '/environment.php';
 
