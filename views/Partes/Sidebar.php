@@ -19,7 +19,7 @@ const SIDEBAR_LINKS = [
     'title' => 'Vehículos',
     'sublinks' => [
       [
-        'href' => 'vehiculos-lista.html',
+        'href' => '../vehiculos',
         'title' => 'Lista de vehículos'
       ],
       [
