@@ -10,6 +10,7 @@ $stmt = db()->query('
 
 $iniciales = [];
 
+/** @var array{inicial: string} $estado */
 while ($estado = $stmt?->fetch()) {
   $iniciales[$estado['inicial']][] = $estado;
 }

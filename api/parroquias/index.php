@@ -10,6 +10,7 @@ $stmt = db()->prepare('
 $stmt->execute([$_GET['id_municipio']]);
 $iniciales = [];
 
+/** @var array{inicial: string} $parroquia */
 while ($parroquia = $stmt->fetch()) {
   $iniciales[$parroquia['inicial']][] = $parroquia;
 }

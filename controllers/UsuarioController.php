@@ -14,6 +14,20 @@ final readonly class UsuarioController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 // Recoger datos del formulario
+                /**
+                 * @var array{
+                 *   primerNombre: string,
+                 *   segundoNombre: string,
+                 *   primerApellido: string,
+                 *   segundoApellido: string,
+                 *   cedula: string,
+                 *   telefono: string,
+                 *   correo: string,
+                 *   nombreUsuario: string,
+                 *   contrasena: string,
+                 *   idRol: int
+                 * }
+                 */
                 $datos = [
                     'primerNombre' => $_POST['firstName'],
                     'segundoNombre' => $_POST['secondName'],

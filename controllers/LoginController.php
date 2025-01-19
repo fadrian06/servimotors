@@ -59,6 +59,20 @@ final readonly class LoginController
                 ];
             }
 
+            /**
+             * @var array{
+             *   cedula: string,
+             *   nombreUsuario: string,
+             *   contrasena: string,
+             *   nombreRol: string,
+             *   primerNombre: string,
+             *   segundoNombre: string,
+             *   primerApellido: string,
+             *   segundoApellido: string,
+             *   telefono: string,
+             *   correo: string
+             * }
+             */
             $usuario = $stmt->fetch();
 
             if (!password_verify($password, $usuario['contrasena'])) {

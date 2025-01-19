@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Procesar la solicitud del cliente
-$nombreUsuario = $_POST['username'] ?? '';
-$contrasena = $_POST['password'] ?? '';
+$nombreUsuario = is_string($_POST['username']) ? $_POST['username'] : '';
+$contrasena = is_string($_POST['password']) ? $_POST['password'] : '';
 
 if (!$nombreUsuario || !$contrasena) {
     // Respuesta en caso de datos incompletos
