@@ -22,7 +22,7 @@ if (!$nombreUsuario || !$contrasena) {
 $loginController = new LoginController;
 $resultado = $loginController($nombreUsuario, $contrasena);
 
-if (!$resultado['success']) {
+if (!key_exists('user', $resultado)) {
     http_response_code($resultado['code']);
 
     // Si las credenciales son incorrectas
@@ -30,7 +30,7 @@ if (!$resultado['success']) {
 }
 
 // Iniciar sesión en PHP
-session_start();  // Inicia la sesión
+session_start();
 
 // Almacenar la información del usuario en las variables de sesión
 $_SESSION += [

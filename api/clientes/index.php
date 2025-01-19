@@ -4,8 +4,7 @@ require_once __DIR__ . '/../../config/Database.php';
 require_once __DIR__ . '/../functions.php';
 
 // Crear una instancia de la clase Database
-$database = new Database;
-$conn = $database->getConnection();
+$conn = Database::getConnection();
 
 // Consulta para obtener los datos de los clientes
 $sql = "
@@ -31,30 +30,33 @@ $sql = "
 ";
 
 // Ejecutar la consulta y mostrar los datos en la tabla
-$stmt = $conn->query($sql);
+$stmt = $conn->query($sql) ?: null;
 
 json([
-  'data' => $stmt->fetchAll(PDO::FETCH_FUNC, static fn(...$client): array => [
-    $client[0],
-    $client[1],
-    $client[2],
-    $client[3],
-    $client[4],
-    $client[5],
-    $client[6],
-    $client[7],
-    $client[8],
-    <<<html
-    <button
-      class="btn btn-warning btn-sm"
-      onclick="editClient('{$client[0]}')">
-      Modificar
-    </button>
-    <button
-      class="btn btn-danger btn-sm"
-      onclick="deleteClient('{$client[0]}')">
-      Eliminar
-    </button>
-    html
-  ])
+  'data' => $stmt?->fetchAll(
+    PDO::FETCH_FUNC,
+    static fn(int|string|null ...$client): array => [
+      (int) $client[0],
+      $client[1],
+      $client[2],
+      $client[3],
+      $client[4],
+      $client[5],
+      $client[6],
+      $client[7],
+      $client[8],
+      <<<html
+      <button
+        class="btn btn-warning btn-sm"
+        onclick="editClient('{$client[0]}')">
+        Modificar
+      </button>
+      <button
+        class="btn btn-danger btn-sm"
+        onclick="deleteClient('{$client[0]}')">
+        Eliminar
+      </button>
+      html
+    ]
+  ) ?? []
 ]);
