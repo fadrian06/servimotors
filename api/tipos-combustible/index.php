@@ -8,4 +8,4 @@ $stmt = Database::getConnection()->query('
   FROM tipos_combustible
 ') ?: null;
 
-json($stmt->fetchAll());
+json($stmt?->fetchAll() ?: []);

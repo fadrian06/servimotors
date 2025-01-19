@@ -10,15 +10,23 @@ function json(mixed $value, int $status = 200): never
   exit(json_encode($value));
 }
 
+/** @param array<string, mixed> $data */
 function render(string $view, array $data = []): string
 {
   require_once __DIR__ . '/assets/vendor/bareui/BareUI.php';
 
   BareUI::config('path', __DIR__ . '/views');
 
-  return BareUI::render($view, $data);
+  $html = BareUI::render($view, $data) ?: '';
+
+  if (is_string($html)) {
+    return $html;
+  }
+
+  return '';
 }
 
+/** @param array<string, mixed> $data */
 function renderPage(string $page, string $title, array $data = [], string $layout = ''): never
 {
   $data['title'] ??= $title;
@@ -31,12 +39,14 @@ function renderPage(string $page, string $title, array $data = [], string $layou
   exit($page);
 }
 
+/** @param array<string, mixed> $data */
 function renderOnce(
   string $key,
   string $html = '',
   string $view = '',
   array $data = []
 ): void {
+  /** @var string[] */
   static $renderedKeys = [];
 
   if (in_array($key, $renderedKeys)) {
