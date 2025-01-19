@@ -30,3 +30,24 @@ function renderPage(string $page, string $title, array $data = [], string $layou
 
   exit($page);
 }
+
+function renderOnce(
+  string $key,
+  string $html = '',
+  string $view = '',
+  array $data = []
+): void {
+  static $renderedKeys = [];
+
+  if (in_array($key, $renderedKeys)) {
+    return;
+  }
+
+  $renderedKeys[] = $key;
+
+  if ($html) {
+    echo $html;
+  } elseif ($view) {
+    echo render($view, $data);
+  }
+}
