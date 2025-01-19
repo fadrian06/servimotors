@@ -1,6 +1,6 @@
 <?php
 
-class UsuarioController
+final readonly class UsuarioController
 {
     private UsuarioModel $modelo;
 
@@ -9,7 +9,7 @@ class UsuarioController
         $this->modelo = new UsuarioModel($conexion);
     }
 
-    public function registrar()
+    public function registrar(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {

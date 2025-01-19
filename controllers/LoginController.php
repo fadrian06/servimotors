@@ -13,7 +13,26 @@ final readonly class LoginController
         $this->db = $pdo ?? Database::getConnection();
     }
 
-    function __invoke(string $nombreUsuario, string $contrasena)
+    /**
+     * @return array{
+     *   success: bool,
+     *   message: string,
+     *   code: int,
+     *   user?: array{
+     *     cedula: string,
+     *     nombreUsuario: string,
+     *     rol: string,
+     *     primerNombre: string,
+     *     segundoNombre: string,
+     *     primerApellido: string,
+     *     segundoApellido: string,
+     *     telefono: string,
+     *     correo: string
+     *   },
+     *   debug?: string
+     * }
+     */
+    function __invoke(string $username, string $password)
     {
         try {
             // Consulta para obtener los datos del usuario, incluyendo información personal y de contacto
@@ -29,7 +48,7 @@ final readonly class LoginController
             ";
 
             $stmt = $this->db->prepare($query);
-            $stmt->execute([$nombreUsuario]);
+            $stmt->execute([$username]);
 
             if ($stmt->rowCount() === 0) {
                 // Usuario no encontrado
@@ -42,7 +61,7 @@ final readonly class LoginController
 
             $usuario = $stmt->fetch();
 
-            if (!password_verify($contrasena, $usuario['contrasena'])) {
+            if (!password_verify($password, $usuario['contrasena'])) {
                 // Contraseña incorrecta
                 return [
                     'success' => false,

@@ -1,6 +1,6 @@
 <?php
 
-class UsuarioModel
+final readonly class UsuarioModel
 {
     private PDO $conexion;
 
@@ -17,7 +17,21 @@ class UsuarioModel
         $this->conexion = $conexion;
     }
 
-    public function validarDatos($datos)
+    /**
+     * @param array{
+     *   primerNombre: string,
+     *   segundoNombre: string,
+     *   primerApellido: string,
+     *   segundoApellido: string,
+     *   cedula: string,
+     *   telefono: string,
+     *   correo: string,
+     *   nombreUsuario: string,
+     *   contrasena: string,
+     * } $datos
+     * @return string[]
+     */
+    public function validarDatos($datos): array
     {
         $errores = [];
 
@@ -52,7 +66,21 @@ class UsuarioModel
         return $errores;
     }
 
-    public function registrarUsuario($datos)
+    /**
+     * @param array{
+     *   primerNombre: string,
+     *   segundoNombre: string,
+     *   primerApellido: string,
+     *   segundoApellido: string,
+     *   cedula: string,
+     *   telefono: string,
+     *   correo: string,
+     *   nombreUsuario: string,
+     *   contrasena: string,
+     *   idRol: int
+     * } $datos
+     */
+    public function registrarUsuario($datos): true
     {
         try {
             $this->conexion->beginTransaction();
@@ -101,17 +129,23 @@ class UsuarioModel
         }
     }
 
-    public function usuarioExiste($cedula, $nombreUsuario, $correo)
-    {
-        $sql = "SELECT cedula FROM Usuarios WHERE cedula = :cedula 
-                UNION 
-                SELECT cedula FROM Usuarios WHERE nombreUsuario = :nombreUsuario
-                UNION
-                SELECT u.cedula FROM Usuarios u 
-                INNER JOIN ContactosUsuario c ON u.cedula = c.cedula 
-                WHERE c.correo = :correo";
+    public function usuarioExiste(
+        string $cedula,
+        string $nombreUsuario,
+        string $correo
+    ): bool {
+        $sql = "
+            SELECT cedula FROM Usuarios WHERE cedula = :cedula
+            UNION
+            SELECT cedula FROM Usuarios WHERE nombreUsuario = :nombreUsuario
+            UNION
+            SELECT u.cedula FROM Usuarios u
+            JOIN ContactosUsuario c ON u.cedula = c.cedula
+            WHERE c.correo = :correo
+        ";
 
         $stmt = $this->conexion->prepare($sql);
+
         $stmt->execute([
             ':cedula' => str_replace(['V-', 'E-'], '', $cedula),
             ':nombreUsuario' => $nombreUsuario,
