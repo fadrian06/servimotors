@@ -11,5 +11,7 @@ function db(): PDO
     );
   }
 
+  assert($pdo instanceof PDO);
+
   return $pdo;
 }
