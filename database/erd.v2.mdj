@@ -3009,6 +3009,22 @@
 											"top": 631,
 											"width": 164.4599609375,
 											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAGUgCd72Q3n24g=",
+											"_parent": {
+												"$ref": "AAAAAAGUf7Dhbj1/E1s="
+											},
+											"model": {
+												"$ref": "AAAAAAGUgCd7fQ3k+xo="
+											},
+											"fillColor": "#ffd8ff",
+											"font": "Arial;13;0",
+											"left": 517,
+											"top": 646,
+											"width": 164.4599609375,
+											"height": 13
 										}
 									],
 									"fillColor": "#ffd8ff",
@@ -3016,7 +3032,7 @@
 									"left": 512,
 									"top": 551,
 									"width": 174.4599609375,
-									"height": 98
+									"height": 113
 								}
 							],
 							"fillColor": "#ffd8ff",
@@ -3024,7 +3040,7 @@
 							"left": 512,
 							"top": 528,
 							"width": 174.4599609375,
-							"height": 121,
+							"height": 136,
 							"nameLabel": {
 								"$ref": "AAAAAAGUf7Dhbj1+KSM="
 							},
@@ -3213,7 +3229,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 561,
-									"top": 677,
+									"top": 684,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -3247,7 +3263,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 561,
-									"top": 667,
+									"top": 682,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -3264,7 +3280,7 @@
 								"$ref": "AAAAAAGUf6/RFj1XXno="
 							},
 							"lineStyle": 2,
-							"points": "576:720;576:648",
+							"points": "576:720;576:663",
 							"nameLabel": {
 								"$ref": "AAAAAAGUf7R/Ej3zvNc="
 							},
@@ -4577,6 +4593,16 @@
 							},
 							"name": "año",
 							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAGUgCd7fQ3k+xo=",
+							"_parent": {
+								"$ref": "AAAAAAGUf7Dhaz17YBw="
+							},
+							"name": "clave",
+							"length": 0,
+							"unique": true
 						}
 					]
 				}

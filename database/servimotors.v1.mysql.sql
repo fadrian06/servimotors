@@ -129,9 +129,9 @@ CREATE TABLE vehiculos (
   modeloId INT NOT NULL,
   tipoCombustibleId INT NOT NULL,
   anio INT NOT NULL,
+  clave VARCHAR(255) NOT NULL UNIQUE,
 
   -- FOREIGN KEY (cedulaCliente) REFERENCES clientes (cedula),
-  FOREIGN KEY (marcaId) REFERENCES marcas (marcaId),
   FOREIGN KEY (modeloId) REFERENCES modelos (modeloId),
   FOREIGN KEY (tipoCombustibleId) REFERENCES tipos_combustible (tipoCombustibleId)
 );

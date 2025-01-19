@@ -188,6 +188,7 @@ CREATE TABLE vehiculos (
   id_tipo_combustible INTEGER NOT NULL,
   placa VARCHAR(255) NOT NULL UNIQUE,
   anio INTEGER NOT NULL,
+  clave VARCHAR(255) NOT NULL UNIQUE,
 
   FOREIGN KEY (id_modelo) REFERENCES modelos (id),
   FOREIGN KEY (id_tipo_combustible) REFERENCES tipos_combustible (id),

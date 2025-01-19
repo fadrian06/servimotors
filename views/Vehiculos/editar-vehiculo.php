@@ -1,5 +1,14 @@
 <?php
 
+require_once __DIR__ . '/../../config/Database.php';
+
+$stmt = Database::getConnection()->prepare('
+  SELECT * FROM vehiculos WHERE placa = ?
+') ?: null;
+
+$stmt?->execute([$_GET['placa']]);
+$vehicle = $stmt?->fetch() ?: [];
+
 $formId = uniqid();
 
 include __DIR__ . '/../Partes/head.php';
@@ -15,7 +24,7 @@ include __DIR__ . '/../Partes/head.php';
             <div class="card-body">
               <div class="pt-4 pb-2">
                 <h5 class="card-title text-center pb-0 fs-4">
-                  Registrar Nuevo Vehículo
+                  Editar Vehículo
                 </h5>
               </div>
 
@@ -30,8 +39,8 @@ include __DIR__ . '/../Partes/head.php';
                     name="clientID"
                     class="form-control"
                     id="clientID"
-                    required
-                    min="1">
+                    min="1"
+                    value="<?= $vehicle['cedulaCliente'] ?>" />
                   <div class="invalid-feedback">
                     Ingrese la cédula de un cliente válida.
                   </div>
@@ -44,8 +53,7 @@ include __DIR__ . '/../Partes/head.php';
                   <select
                     name="brand"
                     id="brand"
-                    class="form-select"
-                    required>
+                    class="form-select">
                     <option value=""></option>
                   </select>
                   <div class="invalid-feedback">Ingrese una marca válida.</div>
@@ -57,8 +65,7 @@ include __DIR__ . '/../Partes/head.php';
                   <select
                     name="model"
                     id="model"
-                    class="form-select"
-                    required>
+                    class="form-select">
                     <option value=""></option>
                   </select>
                   <div class="invalid-feedback">Ingrese un modelo válido.</div>
@@ -72,9 +79,9 @@ include __DIR__ . '/../Partes/head.php';
                     name="year"
                     class="form-control"
                     id="year"
-                    required
                     min="1900"
-                    max="<?= date('Y') ?>">
+                    max="<?= date('Y') ?>"
+                    value="<?= $vehicle['anio'] ?>" />
                   <div class="invalid-feedback">Ingrese un año válido.</div>
                 </div>
 
@@ -85,10 +92,10 @@ include __DIR__ . '/../Partes/head.php';
                     name="plate"
                     class="form-control"
                     id="plate"
-                    required
                     minlength="6"
                     maxlength="8"
-                    pattern="[A-Z0-9]{6,8}">
+                    pattern="[A-Z0-9]{6,8}"
+                    value="<?= $vehicle['placa'] ?>" />
                   <div class="invalid-feedback">Ingrese una placa válida.</div>
                 </div>
 
@@ -100,8 +107,7 @@ include __DIR__ . '/../Partes/head.php';
                   <select
                     class="form-select"
                     name="fuelType"
-                    id="fuelType"
-                    required>
+                    id="fuelType">
                     <option value="" selected disabled>
                       Seleccione un tipo de combustible
                     </option>
@@ -121,7 +127,7 @@ include __DIR__ . '/../Partes/head.php';
                     id="key"
                     minlength="4"
                     maxlength="20"
-                    pattern="[A-Za-z0-9@!#\$%\^\&\*\(\)_\-]{4,20}">
+                    pattern="[A-Za-z0-9@!#\$%\^\&\*\(\)_\-]{4,20}" />
                   <div class="invalid-feedback">
                     Ingrese una clave válida (4-20 caracteres, letras, números
                     o caracteres especiales).
@@ -131,7 +137,7 @@ include __DIR__ . '/../Partes/head.php';
                 <!-- Botón de registro -->
                 <div class="col-12">
                   <button class="btn btn-primary w-100">
-                    Registrar Vehículo
+                    Actualizar Vehículo
                   </button>
                 </div>
               </form>
@@ -143,7 +149,6 @@ include __DIR__ . '/../Partes/head.php';
   </section>
 </div>
 
-<script src="../../assets/js/validate-forms.js"></script>
 <script async="false">
   const $form = document.querySelector('#form-<?= $formId ?>');
   const $selectBrand = $form.brand
@@ -213,8 +218,8 @@ include __DIR__ . '/../Partes/head.php';
     if (!$form.checkValidity()) {
       Swal.fire({
         icon: 'error',
-        title: 'Formulario incompleto',
-        text: 'Por favor complete correctamente todos los campos.',
+        title: 'Formulario inválido',
+        text: 'Por favor complete correctamente los campos.',
       });
 
       return;
@@ -234,9 +239,12 @@ include __DIR__ . '/../Partes/head.php';
         }
       });
 
-      const response = await fetch('../../api/vehiculos/', {
-        method: 'post',
-        body: formData
+      const response = await fetch(`../../api/vehiculos/?placa=${formData.get('plate')}`, {
+        method: 'PATCH',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+          'content-type': 'application/json'
+        }
       });
 
       const result = await response.json();
@@ -244,11 +252,9 @@ include __DIR__ . '/../Partes/head.php';
       if (result.success) {
         Swal.fire({
           icon: 'success',
-          title: 'Vehículo registrado',
-          text: 'El vehículo ha sido registrado exitosamente.',
+          text: 'El vehículo ha sido actualizado exitosamente.',
         }).then(() => {
           location.href = './'
-          $form.reset(); // Limpiar el formulario después del registro exitoso
         });
       } else {
         Swal.fire({
