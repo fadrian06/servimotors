@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../Controllers/LoginController.php';
-require_once __DIR__ . '/../functions.php';
+require_once __DIR__ . '/../../functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     return;
