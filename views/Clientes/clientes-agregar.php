@@ -565,9 +565,9 @@ $stmt = $conn->query($sql);
     const $selectEstado = $formEditarCliente.state
     const $selectMunicipio = $formEditarCliente.municipality
     const $selectParroquia = $formEditarCliente.parish
-    const $listAvenidas = $formEditarCliente.querySelector('#avenue-list')
+    const $listAvenidas = document.querySelector('#avenue-list')
     const $inputAvenida = $formEditarCliente.avenue
-    const $listCalles = $formEditarCliente.querySelector('#street-list')
+    const $listCalles = document.querySelector('#street-list')
     const $inputCalle = $formEditarCliente.street
 
     fetch('../../api/estados/')
