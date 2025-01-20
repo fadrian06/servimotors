@@ -409,9 +409,9 @@ $stmt = $conn->query($sql);
               id="editHousingNumber"
               class="form-control"
               required
-              pattern="(?:\d+|Sin número)">
+              pattern="([\dA-Z\-]+|Sin número)" />
             <div class="invalid-feedback">
-              Número de vivienda inválido (Debe contener números o 'Sin número')
+              Número de vivienda inválido (Debe contener letras, guiones, números o 'Sin número')
             </div>
           </div>
           <!-- Botón para guardar cambios -->
@@ -904,9 +904,9 @@ $stmt = $conn->query($sql);
               id="housingNumber"
               class="form-control"
               required
-              pattern="(?:\d+|Sin número)">
+              pattern="([\dA-Z\-]+|Sin número)" />
             <div class="invalid-feedback">
-              Número de vivienda inválido (Debe contener números o 'Sin número')
+              Número de vivienda inválido (Debe contener letras, guiones, números o 'Sin número')
             </div>
           </div>
 
@@ -1034,12 +1034,12 @@ $stmt = $conn->query($sql);
 
       for (const inicial in estados) {
         $selectEstado.innerHTML += `
-              <optgroup label="${inicial}">
-                ${estados[inicial].map(estado => `
-                  <option value="${estado.id}">${estado.nombre}</option>
-                `)}
-              </optgroup>
-            `
+          <optgroup label="${inicial}">
+            ${estados[inicial].map(estado => `
+              <option value="${estado.id}">${estado.nombre}</option>
+            `)}
+          </optgroup>
+        `
       }
     })
 
