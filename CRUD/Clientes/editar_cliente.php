@@ -3,19 +3,19 @@
 require_once '../../config/Database.php';
 require_once __DIR__ . '/ClientValidator.php';
 
-class ClientUpdate
+final readonly class ClientUpdate
 {
-    private $conn;
-    private $validator;
+    private PDO $conn;
+    private ClientValidator $validator;
 
-    public function __construct()
+    function __construct()
     {
         $database = new Database();
         $this->conn = $database->getConnection();
         $this->validator = new ClientValidator();
     }
 
-    public function update($data)
+    function update($data)
     {
         if (!$this->validator->validateForm($data)) {
             return [

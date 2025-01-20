@@ -497,19 +497,30 @@ $stmt = $conn->query($sql);
       try {
         const formData = new FormData(form)
 
-        let response = await fetch(`../../api/municipios/?id_estado=${form.state.value}`)
+        let response = await fetch(`../../api/estados/by-id.php?id=${form.state.value}`)
         const estado = await response.json()
-        response = await fetch(`../../api/parroquias/?id_municipio=${form.municipality.value}`)
+        response = await fetch(`../../api/municipios/by-id.php?id=${form.municipality.value}`)
         const municipio = await response.json()
-        response = await fetch(`../../api/avenidas/?id_parroquia=${form.parish.value}`)
+        response = await fetch(`../../api/parroquias/by-id.php?id=${form.parish.value}`)
         const parroquia = await response.json()
 
         function soloInicialMayuscula(string = '') {
           const letters = string.toLowerCase().split('')
+
+          console.log({
+            letters
+          })
+
           letters[0] = letters[0].toUpperCase()
 
           return letters.join('')
         }
+
+        console.log({
+          estado,
+          municipio,
+          parroquia
+        })
 
         formData.set('state', soloInicialMayuscula(estado.nombre))
         formData.set('municipality', soloInicialMayuscula(municipio.nombre))
@@ -554,6 +565,8 @@ $stmt = $conn->query($sql);
           title: 'Error',
           text: 'Ocurrió un error al procesar la solicitud',
         })
+
+        console.error(error)
       }
     })
   })
