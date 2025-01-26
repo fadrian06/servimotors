@@ -12,7 +12,7 @@
                 <h5 class="card-title text-center pb-0 fs-4">Registrar Nuevo Empleado</h5>
               </div>
 
-              <form class="row g-3 needs-validation" id="employeeForm" novalidate>
+              <form class="row g-3 needs-validation" id="employeeForm" method="post" action="./empleados-registrar.php">
 
                 <!-- Primer Nombre -->
                 <div class="col-md-6">
@@ -113,8 +113,7 @@
                     (opcional).</div>
                 </div>
 
-                <!-- Dirección -->
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <label for="municipio" class="form-label">Municipio</label>
                   <input type="text" name="municipio" class="form-control" id="municipio"
                     required pattern="^[A-Za-z\s]{2,50}$">
@@ -147,7 +146,7 @@
                   <input type="text" name="addressDetail" class="form-control"
                     id="addressDetail" required pattern="^[A-Za-z0-9\s]{2,100}$">
                   <div class="invalid-feedback">Ingrese una dirección válida.</div>
-                </div>
+                </div> -->
 
                 <!-- Rol -->
                 <div class="col-md-6">
@@ -225,29 +224,5 @@
     </div>
   </section>
 </div>
-
-<script>
-  document.getElementById("employeeForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    if (this.checkValidity() === false) {
-      e.stopPropagation();
-      this.classList.add("was-validated");
-      return;
-    }
-
-    // Simulate successful registration with SweetAlert
-    Swal.fire({
-      icon: "success",
-      title: "Empleado registrado",
-      text: "El registro se ha realizado exitosamente.",
-      showConfirmButton: true,
-      confirmButtonText: "Aceptar",
-    }).then(() => {
-      // Aquí podrías redirigir a otra página o limpiar el formulario si es necesario
-      document.getElementById("employeeForm").reset();
-    });
-  });
-</script>
 
 <?php include __DIR__ . '/../Partes/footer.php' ?>

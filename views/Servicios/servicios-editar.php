@@ -17,6 +17,25 @@ $empleados = Database::getConnection()
   ->query('SELECT * FROM empleados')
   ->fetchAll();
 
+$stmt = Database::getConnection()
+  ->prepare(
+    '
+    SELECT *
+    FROM servicios
+    JOIN vehiculos
+    JOIN modelos
+    JOIN marcas
+    JOIN empleados
+    ON servicios.placaVehiculo = vehiculos.placa
+    AND vehiculos.modeloId = modelos.modeloId
+    AND modelos.marcaId = marcas.marcaId
+    AND servicios.cedulaMecanico = empleados.cedula
+    WHERE servicios.id = ?'
+  );
+
+$stmt->execute([$_GET['id']]);
+$servicio = $stmt->fetch();
+
 ?>
 
 <?php include __DIR__ . '/../Partes/head.php' ?>
@@ -30,18 +49,20 @@ $empleados = Database::getConnection()
           <div class="card mb-3">
             <div class="card-body">
               <div class="pt-4 pb-2">
-                <h5 class="card-title text-center pb-0 fs-4">Registrar Nuevo Servicio</h5>
+                <h5 class="card-title text-center pb-0 fs-4">Editar Servicio</h5>
               </div>
 
               <form class="row g-3 needs-validation" id="serviceForm" novalidate>
-
+                <input type="hidden" name="id" value="<?= $servicio['id'] ?>" />
                 <!-- Vehículo Asociado -->
                 <div class="col-md-12">
                   <label for="vehicle" class="form-label">Vehículo Asociado</label>
                   <select class="form-select" name="vehicle" id="vehicle" required>
                     <option value="" selected disabled>Seleccione el vehículo</option>
                     <?php foreach ($vehiculos as $vehiculo) : ?>
-                      <option value="<?= $vehiculo['placa'] ?>">
+                      <option
+                        value="<?= $vehiculo['placa'] ?>"
+                        <?= $servicio['placaVehiculo'] === $vehiculo['placa'] ? 'selected' : '' ?>>
                         <?= "{$vehiculo['nombreMarca']} ({$vehiculo['nombreModelo']}) - {$vehiculo['anio']} #{$vehiculo['placa']}" ?>
                       </option>
                     <?php endforeach ?>
@@ -54,7 +75,7 @@ $empleados = Database::getConnection()
                 <div class="col-md-12">
                   <label for="faultReason" class="form-label">Motivo de la Falla</label>
                   <textarea name="faultReason" class="form-control" id="faultReason" required
-                    pattern="^.{10,300}$"></textarea>
+                    pattern="^.{10,300}$"><?= $servicio['motivo'] ?></textarea>
                   <div class="invalid-feedback">El motivo debe tener entre 10 y 300
                     caracteres.</div>
                 </div>
@@ -63,7 +84,7 @@ $empleados = Database::getConnection()
                 <div class="col-md-6">
                   <label for="cost" class="form-label">Costo</label>
                   <input type="text" name="cost" class="form-control" id="cost" required
-                    pattern="^\d{1,6}(\.\d{1,2})?$">
+                    pattern="^\d{1,6}(\.\d{1,2})?$" value="<?= $servicio['costo'] ?>">
                   <div class="invalid-feedback">Ingrese un costo válido (ej. 1000 o 1000.00).
                   </div>
                 </div>
@@ -72,14 +93,14 @@ $empleados = Database::getConnection()
                 <div class="col-md-6">
                   <label for="entryDate" class="form-label">Fecha de Entrada</label>
                   <input type="date" name="entryDate" class="form-control" id="entryDate"
-                    required>
+                    required value="<?= $servicio['fechaEntrada'] ?>">
                   <div class="invalid-feedback">Seleccione una fecha válida.</div>
                 </div>
 
                 <!-- Fecha de Salida -->
                 <div class="col-md-6">
                   <label for="exitDate" class="form-label">Fecha de Salida</label>
-                  <input type="date" name="exitDate" class="form-control" id="exitDate">
+                  <input type="date" name="exitDate" class="form-control" id="exitDate" value="<?= $servicio['fechaSalida'] ?>">
                   <div class="invalid-feedback">Seleccione una fecha válida.</div>
                 </div>
 
@@ -87,7 +108,7 @@ $empleados = Database::getConnection()
                 <div class="col-md-6">
                   <label for="mileage" class="form-label">Kilometraje</label>
                   <input type="text" name="mileage" class="form-control" id="mileage" required
-                    pattern="^\d{1,7}$">
+                    pattern="^\d{1,7}$" value="<?= $servicio['kilometraje'] ?>">
                   <div class="invalid-feedback">Ingrese un kilometraje válido (solo números).
                   </div>
                 </div>
@@ -97,9 +118,9 @@ $empleados = Database::getConnection()
                   <label for="category" class="form-label">Categoría</label>
                   <select class="form-select" name="category" id="category" required>
                     <option value="" selected disabled>Seleccione la categoría</option>
-                    <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Reparación">Reparación</option>
-                    <option value="Revisión">Revisión</option>
+                    <option <?= $servicio['categoria'] === 'Mantenimiento' ? 'selected' : '' ?> value="Mantenimiento">Mantenimiento</option>
+                    <option <?= $servicio['categoria'] === 'Reparación' ? 'selected' : '' ?> value="Reparación">Reparación</option>
+                    <option <?= $servicio['categoria'] === 'Revisión' ? 'selected' : '' ?> value="Revisión">Revisión</option>
                   </select>
                   <div class="invalid-feedback">Seleccione una categoría de servicio.</div>
                 </div>
@@ -110,22 +131,21 @@ $empleados = Database::getConnection()
                   <select class="form-select" name="mechanic" id="mechanic" required>
                     <option value="">Seleccione el mecánico</option>
                     <?php foreach ($empleados as $empleado) : ?>
-                      <option value="<?= $empleado['cedula'] ?>">
+                      <option
+                        value="<?= $empleado['cedula'] ?>"
+                        <?= $servicio['cedulaMecanico'] === $empleado['cedula'] ? 'selected' : '' ?>>
                         <?= "{$empleado['primerNombre']} {$empleado['primerApellido']}" ?>
                       </option>
                     <?php endforeach ?>
                   </select>
-                  <!-- <input type="text" name="mechanic" class="form-control" id="mechanic"
-                    required pattern="^[A-Za-z\s]{2,40}$"> -->
                   <div class="invalid-feedback">Ingrese el nombre del mecánico (solo letras,
                     hasta 40 caracteres).</div>
                 </div>
 
                 <!-- Botón de registro -->
                 <div class="col-12">
-                  <button class="btn btn-primary w-100" type="submit">
-                    Registrar Servicio
-                  </button>
+                  <button class="btn btn-primary w-100" type="submit">Actualizar
+                    Servicio</button>
                 </div>
               </form>
 
@@ -180,7 +200,7 @@ $empleados = Database::getConnection()
           }
         });
 
-        const response = await fetch('registro_servicio.php', {
+        const response = await fetch('actualizar_servicio.php', {
           method: 'POST',
           body: formData
         });
@@ -190,8 +210,8 @@ $empleados = Database::getConnection()
         if (result.success) {
           Swal.fire({
             icon: 'success',
-            title: 'Servicio registrado',
-            text: 'El servicio ha sido registrado exitosamente.',
+            title: 'Servicio actualizado',
+            text: 'El servicio ha sido actualizado exitosamente.',
           }).then(() => {
             form.reset(); // Limpiar el formulario después del registro exitoso
           });
@@ -199,7 +219,7 @@ $empleados = Database::getConnection()
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: result.mensaje || 'Error al registrar servicio'
+            text: result.mensaje || 'Error al actualizar servicio'
           });
         }
       } catch (error) {

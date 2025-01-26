@@ -136,6 +136,45 @@ CREATE TABLE vehiculos (
   FOREIGN KEY (tipoCombustibleId) REFERENCES tipos_combustible (tipoCombustibleId)
 );
 
+CREATE TABLE empleados (
+  cedula VARCHAR(15) NOT NULL PRIMARY KEY,
+  primerNombre VARCHAR(255) NOT NULL,
+  segundoNombre VARCHAR(255) DEFAULT NULL,
+  primerApellido VARCHAR(255) NOT NULL,
+  segundoApellido VARCHAR(255) DEFAULT NULL,
+  genero ENUM('M', 'F') NOT NULL,
+  fechaNacimiento DATE NOT NULL,
+  fechaIngreso DATE NOT NULL,
+  correo VARCHAR(255) NOT NULL UNIQUE,
+  telefonoLocal VARCHAR(15) NOT NULL UNIQUE,
+  telefonoPersonal VARCHAR(15) NOT NULL UNIQUE,
+  telefonoAdicional VARCHAR(15) DEFAULT NULL,
+  casaApartamentoId INT,
+  rol ENUM ('Mecánico', 'Electricista', 'Transmisión', 'Aire Acondicionado', 'Ayudante', 'Mensajero', 'Limpieza') NOT NULL,
+  experienciaLaboral VARCHAR(255) NOT NULL,
+  certificacion VARCHAR(255) NOT NULL,
+  habilidadTecnica VARCHAR(255) NOT NULL,
+  estado ENUM('Activo', 'Inactivo') NOT NULL,
+
+  FOREIGN KEY (casaApartamentoId) REFERENCES casasapartamentos (casaApartamentoId)
+);
+
+CREATE TABLE servicios (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  placaVehiculo VARCHAR(15) NOT NULL,
+  motivo VARCHAR(255) NOT NULL,
+  costo DECIMAL(10, 2) NOT NULL CHECK (costo > 0),
+  fechaEntrada DATE NOT NULL,
+  fechaSalida DATE NOT NULL,
+  kilometraje INT NOT NULL CHECK (kilometraje >= 0),
+  categoria ENUM('Mantenimiento', 'Reparación', 'Revisión') NOT NULL,
+  cedulaMecanico VARCHAR(255) NOT NULL,
+
+  FOREIGN KEY (placaVehiculo) REFERENCES vehiculos (placa),
+  FOREIGN KEY (cedulaMecanico) REFERENCES empleados (cedula),
+  CHECK (fechaEntrada <= fechaSalida)
+);
+
 INSERT INTO marcas (nombreMarca) VALUES
   ('Chevrolet'), ('Ford'), ('Toyota'), ('Hyundai'), ('Kia'), ('Mitsubishi'),
   ('Nissan'), ('Renault'), ('Volkswagen'), ('BMW'), ('Mercedes Benz'),
