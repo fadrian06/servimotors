@@ -33,7 +33,7 @@ const SIDEBAR_LINKS = [
     'title' => 'Servicios',
     'sublinks' => [
       [
-        'href' => 'servicios-lista.html',
+        'href' => '../Servicios/',
         'title' => 'Lista de servicios'
       ],
       [
