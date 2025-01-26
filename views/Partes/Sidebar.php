@@ -71,7 +71,7 @@ const SIDEBAR_LINKS = [
     'title' => 'Empleados',
     'sublinks' => [
       [
-        'href' => 'empleados-lista.html',
+        'href' => '../Empleados',
         'title' => 'Lista de empleados'
       ],
       [
