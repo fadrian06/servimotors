@@ -6,3 +6,27 @@ Registrar cliente:
   ✔ Casa o apartamento XX o es el número o hacer un `<select>` de tipo de vivienda @done (30/11/2024 19:39:00)
   ☐ Modificar el reporte pantalla si da error al registrar.
   ☐ Los mensajes de validación deben de estar mejor formulados.
+
+Autorización de usuarios:
+  ☐ Admin
+  ☐ Secretaria (que se pueda registrar desde el login o sólo lo haga el admin)
+
+☐ Mostrar las actividades que puede hacer cada usuario.
+
+Bitácora (movimientos dentro del sistema):
+  ☐ Tiene que estar en el módulo de reportes.
+  ☐ No se puede modificar, sólo es modelo / vista para admin y secretaria.
+
+Correcciones 27/1/2025:
+  ☐ Compatibilidad de los navegadores (mínimo 4 navegadores Opera, Chrome, Firefox y Edge) que tengan sus dos versiones anteriores (pruebas).
+  ☐ PHP es el que está arrojando error en tipo de combustible.
+  ☐ Añadir un select cédula (V o E)
+  ☐ Añadir un select en teléfono (0414, 0424, 0412, 0426, 0416)
+  ☐ Relacionar que un empleado también deba ser un cliente
+  Módulo inventario:
+    ☐ Stock de entrada
+    ☐ Stock de salida
+  Módulo vehículos:
+    ☐ Que haya un select en cédula mostrando los clientes registrados.
+  Módulo servicios:
+    ☐ Que haya un select en cédula y placa mostrando el cliente y vehículo registrado.
