@@ -983,8 +983,8 @@ $stmt = $conn->query($sql);
           }
         })
 
-        response = await fetch('../../CRUD/Clientes/registro_cliente.php', {
-          method: 'POST',
+        response = await fetch('../../api/clientes/registrar/', {
+          method: 'post',
           body: formData
         })
 

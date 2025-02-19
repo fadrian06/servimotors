@@ -120,19 +120,31 @@ class UserRegistration
       }
 
       // Limpiar el formato de la cédula
+      $nacionalidad = substr($data['cedula'], 0, 1);
       $cedula = str_replace(['V-', 'E-'], '', strtoupper($data['cedula']));
 
       // Insertar en la tabla Usuarios
       $stmt = $this->pdo->prepare('
-        INSERT INTO Usuarios (cedula, idRol, nombreUsuario, contrasena)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO Usuarios (
+          cedula,
+          idRol,
+          nombreUsuario,
+          contrasena,
+          nacionalidad
+        ) VALUES (?, ?, ?, ?, ?)
       ');
 
       $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT, [
         'cost' => 10
       ]);
 
-      $stmt->execute([$cedula, $roleId, $data['username'], $hashedPassword]);
+      $stmt->execute([
+        $cedula,
+        $roleId,
+        $data['username'],
+        $hashedPassword,
+        $nacionalidad
+      ]);
 
       // Insertar en la tabla DatosUsuario
       $stmt = $this->pdo->prepare(

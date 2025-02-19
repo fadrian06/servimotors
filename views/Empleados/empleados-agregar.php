@@ -12,7 +12,28 @@
                 <h5 class="card-title text-center pb-0 fs-4">Registrar Nuevo Empleado</h5>
               </div>
 
-              <form class="row g-3 needs-validation" id="employeeForm" method="post" action="./empleados-registrar.php">
+              <form
+                class="row g-3 needs-validation"
+                id="employeeForm"
+                method="post"
+                action="./empleados-registrar.php"
+                x-data="{
+                  registrarEmpleado(form) {
+                      fetch(form.action, {
+                        method: 'post',
+                        body: new FormData(form),
+                      }).then(async respuesta => {
+                        if (!respuesta.ok) {
+                          const { error } = await respuesta.json()
+
+                          return alert(error[0]);
+                        }
+
+                        location.href = './';
+                      }).catch(console.error);
+                  }
+                }"
+                @submit.prevent="registrarEmpleado($el)">
 
                 <!-- Primer Nombre -->
                 <div class="col-md-6">

@@ -7,6 +7,7 @@ namespace Servimotors\Modelos;
 final readonly class Empleado
 {
   public int $cedula;
+  public string $nacionalidad;
 
   /** @deprecated */
   public string $primerNombre;

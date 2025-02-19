@@ -53,7 +53,8 @@ CREATE TABLE clientes (
   primerNombre varchar(30) NOT NULL,
   segundoNombre varchar(30) DEFAULT NULL,
   primerApellido varchar(30) NOT NULL,
-  segundoApellido varchar(30) DEFAULT NULL
+  segundoApellido varchar(30) DEFAULT NULL,
+  nacionalidad enum('V', 'E')
 );
 
 CREATE TABLE rolusuario (
@@ -66,6 +67,8 @@ CREATE TABLE usuarios (
   idRol int(11) NOT NULL,
   nombreUsuario varchar(50) NOT NULL UNIQUE,
   contrasena varchar(255) NOT NULL,
+  nacionalidad enum('V', 'E'),
+
 
   FOREIGN KEY (idRol) REFERENCES rolusuario (idRol)
 );
@@ -155,6 +158,7 @@ CREATE TABLE empleados (
   certificacion VARCHAR(255) NOT NULL,
   habilidadTecnica VARCHAR(255) NOT NULL,
   estado ENUM('Activo', 'Inactivo') NOT NULL,
+  nacionalidad enum('V', 'E'),
 
   FOREIGN KEY (casaApartamentoId) REFERENCES casasapartamentos (casaApartamentoId)
 );

@@ -11,6 +11,7 @@ require_once __DIR__ . '/Rol.php';
 final class Usuario implements ArrayAccess
 {
   public readonly int $cedula;
+  public readonly string $nacionalidad;
 
   /** @deprecated */
   public readonly string $primerNombre;

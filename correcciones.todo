@@ -21,6 +21,7 @@ Correcciones 27/1/2025:
   ☐ Compatibilidad de los navegadores (mínimo 4 navegadores Opera, Chrome, Firefox y Edge) que tengan sus dos versiones anteriores (pruebas).
   ✔ PHP es el que está arrojando error en tipo de combustible. @done (19/02/2025 11:03:48)
   ☐ Añadir un select cédula (V o E)
+    ✔ Se envía junto al campo cédula @done (19/02/2025 19:57:23)
   ☐ Añadir un select en teléfono (0414, 0424, 0412, 0426, 0416)
   ☐ Relacionar que un empleado también deba ser un cliente
   Módulo inventario:
