@@ -4,6 +4,15 @@
 require_once __DIR__ . '/../../../config/Database.php';
 require_once __DIR__ . '/../../../funciones.php';
 
+@session_start();
+
+if (@$_SESSION['rol'] !== 'Administrador') {
+  json([
+    'success' => false,
+    'mensaje' => 'Acceso denegado'
+  ], 403);
+}
+
 // Clase para validar los datos del usuario
 class UserValidator
 {

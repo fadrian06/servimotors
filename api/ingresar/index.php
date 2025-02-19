@@ -4,9 +4,10 @@ require_once __DIR__ . '/../../Controllers/LoginController.php';
 require_once __DIR__ . '/../../funciones.php';
 
 if (strtolower($_SERVER['REQUEST_METHOD']) !== 'post') {
-  http_response_code(405);
-
-  exit('405');
+  json([
+    'success' => false,
+    'message' => 'Método no permitido.'
+  ], 405);
 }
 
 // Procesar la solicitud del cliente

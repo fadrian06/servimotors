@@ -8,8 +8,8 @@ Registrar cliente:
   ☐ Los mensajes de validación deben de estar mejor formulados.
 
 Autorización de usuarios:
-  ☐ Admin
-  ☐ Secretaria (que se pueda registrar desde el login o sólo lo haga el admin)
+  ✔ Admin @done (18/02/2025 23:06:06)
+  ✔ Secretaria (que se pueda registrar desde el login o sólo lo haga el admin) @done (18/02/2025 23:06:06)
 
 ☐ Mostrar las actividades que puede hacer cada usuario.
 

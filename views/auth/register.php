@@ -1,4 +1,14 @@
-<?php include __DIR__ . '/../Partes/head.php' ?>
+<?php
+
+@session_start();
+
+if (@$_SESSION['rol'] !== 'Administrador') {
+  exit(header('location: ../dashboard/dashboard.php'));
+}
+
+include __DIR__ . '/../Partes/head.php';
+
+?>
 
 
 <section class="d-flex flex-column align-items-center gap-4">
@@ -147,8 +157,8 @@
         <label class="form-floating w-100">
           <select class="form-select" name="role" required>
             <option value="" selected disabled>Seleccione un rol</option>
-            <option>Administrador</option>
-            <option>Secretaría</option>
+            <option value="Administrador">Administrador/a</option>
+            <option value="Secretaría">Secretario/a</option>
           </select>
           <label>Rol</label>
           <div class="invalid-feedback">Por favor seleccione un rol.</div>

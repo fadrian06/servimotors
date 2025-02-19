@@ -1,6 +1,8 @@
 <?php
 
-const SIDEBAR_LINKS = [
+@session_start();
+
+define('SIDEBAR_LINKS', [
   [
     'href' => '../dashboard/dashboard.php',
     'iconClasses' => 'bi bi-grid',
@@ -108,14 +110,15 @@ const SIDEBAR_LINKS = [
   [
     'href' => '../auth/register.php',
     'iconClasses' => 'bi bi-card-list',
-    'title' => 'Registrar'
+    'title' => 'Registrar',
+    'show' => @$_SESSION['rol'] === 'Administrador'
   ],
   [
     'href' => 'pages-login.html',
     'iconClasses' => 'bi bi-box-arrow-in-right',
     'title' => 'Iniciar sesión'
   ]
-];
+]);
 
 define('SIDEBAR_ID', uniqid());
 
@@ -124,6 +127,7 @@ define('SIDEBAR_ID', uniqid());
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="<?= SIDEBAR_ID ?>">
     <?php foreach (SIDEBAR_LINKS as $link): ?>
+      <?php if (key_exists('show', $link) && !$link['show']) continue ?>
       <?php if (key_exists('href', $link)): ?>
         <a class="nav-link" href="<?= $link['href'] ?>">
           <i class="<?= $link['iconClasses'] ?>"></i>
