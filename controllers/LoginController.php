@@ -58,6 +58,7 @@ final readonly class LoginController
       $usuario = $stmt->fetchObject(Usuario::class);
       assert($usuario instanceof Usuario);
       $usuario->rol = new Rol($usuario->idRol, $usuario->nombreRol);
+      $usuario->alias = $usuario->nombreUsuario;
 
       if (!password_verify($password, $usuario['contrasena'])) {
         // Contraseña incorrecta
@@ -72,17 +73,7 @@ final readonly class LoginController
       return [
         'success' => true,
         'message' => 'Inicio de sesión exitoso.',
-        'user' => [
-          'cedula' => $usuario['cedula'],
-          'nombreUsuario' => $usuario['nombreUsuario'],
-          'rol' => $usuario['nombreRol'],
-          'primerNombre' => $usuario['primerNombre'],
-          'segundoNombre' => $usuario['segundoNombre'],
-          'primerApellido' => $usuario['primerApellido'],
-          'segundoApellido' => $usuario['segundoApellido'],
-          'telefono' => $usuario['telefono'],
-          'correo' => $usuario['correo']
-        ],
+        'user' => $usuario,
         'code' => 200
       ];
     } catch (PDOException $exception) {

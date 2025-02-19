@@ -36,7 +36,9 @@ final class Usuario implements ArrayAccess
   /** @deprecated */
   public readonly string $contrasena;
 
-  public readonly string $alias;
+  /** @readonly */
+  public string $alias;
+
   public readonly string $telefono;
   public readonly string $correo;
 

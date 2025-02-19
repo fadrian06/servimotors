@@ -175,6 +175,14 @@ CREATE TABLE servicios (
   CHECK (fechaEntrada <= fechaSalida)
 );
 
+CREATE TABLE bitacora (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  fecha DATETIME NOT NULL UNIQUE DEFAULT CURRENT_TIMESTAMP,
+  titulo VARCHAR(255) NOT NULL CHECK (LENGTH(titulo) > 0),
+  descripcion TEXT NOT NULL,
+  tipo ENUM('Éxito', 'Advertencia', 'Información')
+);
+
 INSERT INTO marcas (nombreMarca) VALUES
   ('Chevrolet'), ('Ford'), ('Toyota'), ('Hyundai'), ('Kia'), ('Mitsubishi'),
   ('Nissan'), ('Renault'), ('Volkswagen'), ('BMW'), ('Mercedes Benz'),

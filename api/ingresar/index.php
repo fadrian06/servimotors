@@ -1,7 +1,11 @@
 <?php
 
+use Servimotors\Bitacora;
+use Servimotors\TipoDeBitacora;
+
 require_once __DIR__ . '/../../Controllers/LoginController.php';
 require_once __DIR__ . '/../../funciones.php';
+require_once __DIR__ . '/../../Bitacora.php';
 
 if (strtolower($_SERVER['REQUEST_METHOD']) !== 'post') {
   json([
@@ -47,6 +51,10 @@ $_SESSION += [
   'telefono' => $resultado['user']['telefono'], // Guarda el teléfono
   'correo' => $resultado['user']['correo'], // Guarda el correo
 ];
+
+['user' => $usuario] = $resultado;
+
+Bitacora::guardar('Sesión iniciada', "El usuario {$usuario->alias} ha iniciado sesión.", TipoDeBitacora::INFORMACION);
 
 // Responder con un mensaje de éxito y redirigir al usuario
 json([
