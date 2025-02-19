@@ -101,7 +101,7 @@ form.addEventListener("submit", async (e) => {
       },
     });
 
-    const response = await fetch("../../CRUD/Usuarios/RegistroUsuario.php", {
+    const response = await fetch("../../api/usuarios/registrar/", {
       method: "POST",
       body: new FormData(form),
     });
