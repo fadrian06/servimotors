@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+namespace Servimotors\Modelos;
+
+use Stringable;
+
 final readonly class Municipio implements Stringable
 {
   /** @deprecated */

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Servimotors\Modelos;
+
 final readonly class Calle implements Stringable
 {
   /** @deprecated */

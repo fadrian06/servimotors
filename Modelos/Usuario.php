@@ -2,32 +2,64 @@
 
 declare(strict_types=1);
 
-final readonly class Usuario
+namespace Servimotors\Modelos;
+
+use ArrayAccess;
+
+require_once __DIR__ . '/Rol.php';
+
+final class Usuario implements ArrayAccess
 {
-  public int $cedula;
+  public readonly int $cedula;
 
   /** @deprecated */
-  public string $primerNombre;
+  public readonly string $primerNombre;
 
   /** @deprecated */
-  public string $segundoNombre;
+  public readonly string $segundoNombre;
 
   /** @deprecated */
-  public string $primerApellido;
+  public readonly string $primerApellido;
 
   /** @deprecated */
-  public string $segundoApellido;
+  public readonly string $segundoApellido;
 
   /** @deprecated */
-  public int $idRol;
+  public readonly int $idRol;
 
   /** @deprecated */
-  public string $nombreUsuario;
+  public readonly string $nombreRol;
 
   /** @deprecated */
-  public string $contrasena;
+  public readonly string $nombreUsuario;
 
-  public string $alias;
-  public string $telefono;
-  public string $correo;
+  /** @deprecated */
+  public readonly string $contrasena;
+
+  public readonly string $alias;
+  public readonly string $telefono;
+  public readonly string $correo;
+
+  /** @readonly */
+  public Rol $rol;
+
+  function offsetExists(mixed $offset): bool
+  {
+    return isset($this->$offset);
+  }
+
+  function offsetGet(mixed $offset): mixed
+  {
+    return $this->$offset;
+  }
+
+  function offsetSet(mixed $offset, mixed $value): void
+  {
+    $this->$offset = $value;
+  }
+
+  function offsetUnset(mixed $offset): void
+  {
+    unset($this->$offset);
+  }
 }
