@@ -180,7 +180,7 @@ CREATE TABLE bitacora (
   fecha DATETIME NOT NULL UNIQUE DEFAULT CURRENT_TIMESTAMP,
   titulo VARCHAR(255) NOT NULL CHECK (LENGTH(titulo) > 0),
   descripcion TEXT NOT NULL,
-  tipo ENUM('Éxito', 'Advertencia', 'Información')
+  tipo VARCHAR(255) NOT NULL CHECK (LENGTH(tipo) > 0)
 );
 
 INSERT INTO marcas (nombreMarca) VALUES

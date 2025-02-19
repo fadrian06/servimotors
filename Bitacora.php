@@ -5,46 +5,69 @@ declare(strict_types=1);
 namespace Servimotors;
 
 use Database;
+use PDO;
 use PDOException;
 
 require_once __DIR__ . '/config/Database.php';
 
-abstract readonly class Bitacora
+final readonly class Bitacora
 {
-  final static function guardar(
+  public int $id;
+  public string $titulo;
+  public string $descripcion;
+
+  /** @deprecated */
+  public string $fecha;
+
+  /** @var 'Éxito'|'Advertencia'|'Información' */
+  public string $tipo;
+
+  static function crear(
     string $titulo,
     string $descripcion,
     TipoDeBitacora $tipo
-  ): void {
+  ): self {
     try {
       $pdo = Database::getConnection();
 
       $sentencia = $pdo->prepare('
         INSERT INTO bitacora (titulo, descripcion, tipo)
-        VALUES (?, ?, ?)
+        VALUES (:titulo, :descripcion, :tipo)
       ');
 
-      $sentencia->execute([$titulo, $descripcion, $tipo->obtenerValor()]);
+      $parametros = [
+        ':titulo' => $titulo,
+        ':descripcion' => $descripcion,
+        ':tipo' => $tipo->value
+      ];
+
+      $sentencia->execute($parametros);
+      $id = $pdo->lastInsertId();
+
+      return $pdo
+        ->query("SELECT * FROM bitacora WHERE id = $id")
+        ->fetchObject(__CLASS__);
     } catch (PDOException $error) {
       throw $error;
     }
   }
+
+  /** @return self[] */
+  static function listado(): array
+  {
+    $pdo = Database::getConnection();
+
+    return $pdo
+      ->query('SELECT * FROM bitacora ORDER BY fecha DESC')
+      ->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+  }
 }
 
 if (!enum_exists(TipoDeBitacora::class)) {
-  enum TipoDeBitacora
+  enum TipoDeBitacora: string
   {
-    case EXITO;
-    case ADVERTENCIA;
-    case INFORMACION;
-
-    function obtenerValor(): string
-    {
-      return match ($this) {
-        self::EXITO => 'Éxito',
-        self::ADVERTENCIA => 'Advertencia',
-        self::INFORMACION => 'Información',
-      };
-    }
+    case EXITO = 'Éxito';
+    case ADVERTENCIA = 'Advertencia';
+    case INFORMACION = 'Información';
   }
 }

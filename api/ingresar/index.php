@@ -54,7 +54,7 @@ $_SESSION += [
 
 ['user' => $usuario] = $resultado;
 
-Bitacora::guardar('Sesión iniciada', "El usuario {$usuario->alias} ha iniciado sesión.", TipoDeBitacora::INFORMACION);
+Bitacora::crear('Sesión iniciada', "El usuario {$usuario->alias} ha iniciado sesión.", TipoDeBitacora::INFORMACION);
 
 // Responder con un mensaje de éxito y redirigir al usuario
 json([

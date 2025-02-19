@@ -104,6 +104,10 @@ define('SIDEBAR_LINKS', [
       [
         'href' => 'reportes-semanales-empleados.html',
         'title' => 'Reportes semanales por empleado'
+      ],
+      [
+        'href' => '../reportes/bitacora.php',
+        'title' => 'Bitácora'
       ]
     ]
   ],
