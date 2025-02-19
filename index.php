@@ -1,5 +1,5 @@
 <?php
 
-require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/funciones.php';
 
-renderPage('login', 'Ingreso', layout: 'login-layout');
+renderizarPagina('ingreso', 'Ingreso', estructura: 'visitante');

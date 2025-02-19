@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../config/Database.php';
-require_once __DIR__ . '/../../functions.php';
+require_once __DIR__ . '/../../funciones.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
   $_POST += json_decode(file_get_contents('php://input'), true);

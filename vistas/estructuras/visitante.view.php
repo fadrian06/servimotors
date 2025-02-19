@@ -1,3 +1,10 @@
+<?php
+
+assert(is_string($titulo));
+assert(is_string($pagina));
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,7 +12,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
 
-  <title><?= $title ?> - SERVIMOTORS</title>
+  <title><?= $titulo ?> - SERVIMOTORS</title>
 
   <base href="<?= str_replace('index.php', '', $_SERVER['SCRIPT_NAME']) ?>" />
 
@@ -26,7 +33,7 @@
 </head>
 
 <body class="container min-vh-100 d-flex flex-column align-items-center justify-content-center gap-4 overflow-y-scroll">
-  <?= $page ?? '' ?>
+  <?= $pagina ?>
   <script src="./assets/js/validate-forms.js"></script>
 </body>
 
