@@ -1,8 +1,13 @@
 <?php
 
 // Incluir la clase Database para manejar la conexión
+
+use Servimotors\Bitacora;
+use Servimotors\TipoDeBitacora;
+
 require_once __DIR__ . '/../../../config/Database.php';
 require_once __DIR__ . '/../../../funciones.php';
+require_once __DIR__ . '/../../../Bitacora.php';
 
 @session_start();
 
@@ -197,5 +202,11 @@ if (!strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
 
 $registration = new UserRegistration; // Instanciar la clase de registro
 $result = $registration->register($_POST); // Registrar al usuario con los datos enviados
+
+Bitacora::crear(
+  "Nuevo {$_POST['role']}",
+  "Se ha creado una nueva cuenta de {$_POST['role']} ({$_POST['username']}), por {$_SESSION['nombreUsuario']} el " . date('Y-m-d H:i:s'),
+  TipoDeBitacora::EXITO
+);
 
 json($result, 201); // Devolver la respuesta en formato JSON

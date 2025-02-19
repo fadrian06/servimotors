@@ -120,6 +120,11 @@ include __DIR__ . '/../Partes/head.php';
       </template>
     </tbody>
   </table>
+  <div class="text-end">
+    <a href="vaciar-bitacora.php" class="btn btn-outline-danger">
+      Vaciar bitácora
+    </a>
+  </div>
 </div>
 
 <?php include __DIR__ . '/../Partes/footer.php';

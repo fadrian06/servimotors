@@ -61,6 +61,12 @@ final readonly class Bitacora
       ->query('SELECT * FROM bitacora ORDER BY fecha DESC')
       ->fetchAll(PDO::FETCH_CLASS, __CLASS__);
   }
+
+  static function vaciar(): void
+  {
+    $pdo = Database::getConnection();
+    $pdo->exec('DELETE FROM bitacora');
+  }
 }
 
 if (!enum_exists(TipoDeBitacora::class)) {

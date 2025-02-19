@@ -14,8 +14,8 @@ Autorización de usuarios:
 ☐ Mostrar las actividades que puede hacer cada usuario.
 
 Bitácora (movimientos dentro del sistema):
-  ☐ Tiene que estar en el módulo de reportes.
-  ☐ No se puede modificar, sólo es modelo / vista para admin y secretaria.
+  ✔ Tiene que estar en el módulo de reportes. @done (19/02/2025 09:25:19)
+  ✔ No se puede modificar, sólo es modelo / vista para admin y secretaria. @done (19/02/2025 09:25:21)
 
 Correcciones 27/1/2025:
   ☐ Compatibilidad de los navegadores (mínimo 4 navegadores Opera, Chrome, Firefox y Edge) que tengan sus dos versiones anteriores (pruebas).
