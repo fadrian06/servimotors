@@ -1,8 +1,25 @@
 <?php
 
+use Servimotors\Modelos\TipoDeCombustible;
+
 $formId = uniqid();
 
+require_once __DIR__ . '/../../config/Database.php';
+require_once __DIR__ . '/../../Modelos/TipoDeCombustible.php';
 include __DIR__ . '/../Partes/head.php';
+
+$pdo = Database::getConnection();
+
+/** @var TipoDeCombustible[] */
+$tiposDeCombustible = $pdo
+  ->query('SELECT * FROM tipos_combustible')
+  ->fetchAll(PDO::FETCH_FUNC, static fn(
+    int $tipoCombustibleId,
+    string $tipoCombustible
+  ): TipoDeCombustible => new TipoDeCombustible(
+    $tipoCombustibleId,
+    $tipoCombustible
+  )) ?: [];
 
 ?>
 
@@ -105,6 +122,11 @@ include __DIR__ . '/../Partes/head.php';
                     <option value="" selected disabled>
                       Seleccione un tipo de combustible
                     </option>
+                    <?php foreach ($tiposDeCombustible as $tipoDeCombustible): ?>
+                      <option value="<?= $tipoDeCombustible->id ?>">
+                        <?= $tipoDeCombustible ?>
+                      </option>
+                    <?php endforeach ?>
                   </select>
                   <div class="invalid-feedback">
                     Seleccione un tipo de combustible.
@@ -162,16 +184,6 @@ include __DIR__ . '/../Partes/head.php';
           </optgroup>
         `
       }
-    })
-
-  fetch('../../api/tipos-combustible/')
-    .then(response => response.json())
-    .then(fuelTypes => {
-      $selectFuelType.innerHTML += fuelTypes.map(fuelType => `
-        <option value="${fuelType.tipoCombustibleId}">
-          ${fuelType.tipoCombustible}
-        </option>
-      `).join('')
     })
 
   $selectBrand.addEventListener('change', () => {

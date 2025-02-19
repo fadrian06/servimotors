@@ -8,16 +8,10 @@ use Stringable;
 
 final readonly class TipoDeCombustible implements Stringable
 {
-  /** @deprecated */
-  public int $tipoCombustibleId;
-
-  /** @deprecated */
-  public string $tipoCombustible;
-
-  public int $id;
+  function __construct(public int $id, public string $tipo) {}
 
   function __toString(): string
   {
-    return mb_convert_case($this->tipoCombustible, MB_CASE_TITLE);
+    return mb_convert_case($this->tipo, MB_CASE_TITLE);
   }
 }
