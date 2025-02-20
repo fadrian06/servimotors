@@ -224,8 +224,8 @@
                   <label for="status" class="form-label">Estado</label>
                   <select class="form-select" name="status" id="status" required>
                     <option value="" selected disabled>Seleccione el estado</option>
-                    <option value="activo">Activo</option>
-                    <option value="inactivo">Inactivo</option>
+                    <option>Activo</option>
+                    <option>Inactivo</option>
                   </select>
                   <div class="invalid-feedback">Seleccione el estado.</div>
                 </div>
