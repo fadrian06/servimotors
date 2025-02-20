@@ -35,14 +35,14 @@ final class Database
         return self::$pdo; // Devolver la conexión
     }
 
-    private static function getSqliteConnection(): ?PDO
+    static function getSqliteConnection(): ?PDO
     {
         return $_ENV['DB_CONNECTION'] === 'sqlite'
             ? new PDO("sqlite:{$_ENV['DB_DATABASE']}")
             : null;
     }
 
-    private static function getMysqlConnection(): ?PDO
+    static function getMysqlConnection(): ?PDO
     {
         return $_ENV['DB_CONNECTION'] === 'mysql'
             ? new PDO(
