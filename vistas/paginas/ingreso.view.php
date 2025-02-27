@@ -7,7 +7,12 @@
     novalidate>
     <h1 class="card-title text-center fs-4">Datos de su cuenta</h1>
     <label class="form-floating">
-      <input name="username" class="form-control" required placeholder="" />
+      <input
+        name="username"
+        class="form-control"
+        value="Ander"
+        required
+        placeholder="" />
       <label>Nombre de usuario</label>
       <div class="invalid-feedback">
         Por favor, ingrese su nombre de usuario.
@@ -19,7 +24,8 @@
         name="password"
         class="form-control"
         required
-        placeholder="" />
+        placeholder=""
+        value="12345678" />
       <label>Contraseña</label>
       <div class="invalid-feedback">
         Por favor, ingrese su contraseña.

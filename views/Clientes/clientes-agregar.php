@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 if (key_exists('_', $_GET)) {
   exit(json_encode('[]'));
 }
 
-require_once '../../config/ManejoUsuario.php';
+require_once __DIR__ . '/../../config/ManejoUsuario.php';
 
 // Incluir el archivo con la clase Database
-require_once '../../config/Database.php';
+require_once __DIR__ . '/../../config/Database.php';
 
 // Crear una instancia de la clase Database
-$database = new Database;
-$conn = $database->getConnection();
+$conn = Database::getConnection();
 
 // Consulta para obtener los datos de los clientes
 $sql = "
@@ -260,7 +261,9 @@ $stmt = $conn->query($sql);
               id="editcedula"
               class="form-control"
               required
-              pattern="[VE]-\d{6,8}" />
+              pattern="[VE]-[0-9]{6,8}"
+              minlength="8"
+              maxlength="10" />
             <div class="invalid-feedback">
               Formato válido: V-123456 o E-123456.
             </div>
@@ -746,7 +749,14 @@ $stmt = $conn->query($sql);
           <!-- Cédula -->
           <div class="col-md-6">
             <label for="cedula" class="form-label">Cédula de Identidad</label>
-            <input type="text" name="cedula" id="cedula" class="form-control" required pattern="^[VE]-\d{6,8}$">
+            <input
+              name="cedula"
+              id="cedula"
+              class="form-control"
+              required
+              pattern="[VE]-[0-9]{6,8}"
+              minlength="8"
+              maxlength="10" />
             <div class="invalid-feedback">Formato válido: V-123456 o E-123456.</div>
           </div>
 

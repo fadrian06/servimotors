@@ -69,7 +69,6 @@ CREATE TABLE usuarios (
   contrasena varchar(255) NOT NULL,
   nacionalidad enum('V', 'E'),
 
-
   FOREIGN KEY (idRol) REFERENCES rolusuario (idRol)
 );
 
@@ -227,16 +226,17 @@ INSERT INTO rolusuario (idRol, nombreRol) VALUES
 (1, 'Administrador'),
 (2, 'Secretaría');
 
-INSERT INTO usuarios (cedula, idRol, nombreUsuario, contrasena) VALUES
+INSERT INTO usuarios (cedula, idRol, nombreUsuario, contrasena, nacionalidad) VALUES
 (
-  '29634134',
+  29634134,
   1,
   'Ander',
-  /* 12345678 */ '$2y$10$8SM1F2hEGucr9BZ94u5k1.SADFHs9du0XwEJST8mWuDHKHuChbTEO'
+  /* 12345678 */ '$2y$10$8SM1F2hEGucr9BZ94u5k1.SADFHs9du0XwEJST8mWuDHKHuChbTEO',
+  'V'
 );
 
 INSERT INTO `contactosusuario` (`cedula`, `telefono`, `correo`) VALUES
-('29634134', '04147510509', 'andersonlobo20@hotmail.com');
+(29634134, '04147510509', 'andersonlobo20@hotmail.com');
 
 INSERT INTO `datosusuario` (`cedula`, `primerNombre`, `segundoNombre`, `primerApellido`, `segundoApellido`) VALUES
-('29634134', 'Anderson', 'Alejandro', 'lobo', 'uzcategui');
+(29634134, 'Anderson', 'Alejandro', 'lobo', 'uzcategui');

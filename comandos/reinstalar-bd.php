@@ -51,4 +51,4 @@ if ($pdo->inTransaction()) {
   $pdo->commit();
 }
 
-echo 'Database reinstalled successfully';
+echo "Database reinstalled successfully\n\n";
