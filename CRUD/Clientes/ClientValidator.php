@@ -27,7 +27,7 @@ final class ClientValidator
 
     // Validar cédula
     if (!preg_match("/^[VE]-[0-9]{6,8}$/", $data['cedula'] ?? '')) {
-      $this->errors[] = "Formato de cédula inválido (debe ser V-XXXXXXXX o E-XXXXXXXX)";
+      $this->errors[] = "Debe empezar con 'V-' o 'E-' seguido de 6 a 8 dígitos.";
     }
 
     // Validar teléfonos

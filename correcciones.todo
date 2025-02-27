@@ -1,5 +1,5 @@
 Registrar cliente:
-  ☐ Modificar en pantalla de validación de C.I. (Decir que debe contener números y lo mínimo que puede tener)
+  ✔ Modificar en pantalla de validación de C.I. (Decir que debe contener números y lo mínimo que puede tener) @done (26/02/2025 20:32:23)
   ✔ Corregir el campo Estado, Municipio, Avenida @done (30/11/2024 19:38:41)
   ✔ Corregir campo Teléfono que acepte si es +58 o el número de otro país. @done (30/11/2024 20:05:49)
   ☐ Corregir los mensajes en pantalla de dirección personal

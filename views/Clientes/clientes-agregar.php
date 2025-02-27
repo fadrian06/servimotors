@@ -265,7 +265,7 @@ $stmt = $conn->query($sql);
               minlength="8"
               maxlength="10" />
             <div class="invalid-feedback">
-              Formato válido: V-123456 o E-123456.
+              Debe empezar con 'V-' o 'E-' seguido de 6 a 8 dígitos.
             </div>
           </div>
 
@@ -757,7 +757,9 @@ $stmt = $conn->query($sql);
               pattern="[VE]-[0-9]{6,8}"
               minlength="8"
               maxlength="10" />
-            <div class="invalid-feedback">Formato válido: V-123456 o E-123456.</div>
+            <div class="invalid-feedback">
+              Debe empezar con 'V-' o 'E-' seguido de 6 a 8 dígitos.
+            </div>
           </div>
 
           <!-- Teléfonos -->
